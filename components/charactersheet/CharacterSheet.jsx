@@ -15,16 +15,16 @@ const styles = {
 function CharacterSheet({ children }) {
   const [selected, setSelected] = useState("stats");
 
-  const changeTab = (name, page) => {
+  const changeTab = (name) => {
     setSelected(name);
   };
 
-  const tab = (icon, name, page) => (
+  const tab = (icon, name) => (
     <div
       className={
         styles.bottomBarButton + (selected === name ? " bg-red-700" : "")
       }
-      onClick={() => changeTab(name, page)}
+      onClick={() => changeTab(name)}
     >
       <Image
         src={"/icons/" + icon + ".png"}
@@ -127,11 +127,11 @@ function CharacterSheet({ children }) {
   return (
     <div className="h-[100%] flex flex-col-reverse">
       <div className="h-[48px] flex justify-evenly bg-red-900 py-1 flex-grow-0 flex-shrink-0 flex-auto sticky top-0">
-        {tab("stats_chart_sharp_icon_48", "stats", statsPage)}
-        {tab("sword_fill_icon_48", "combat", combatPage)}
-        {tab("magic_wand_fill_icon_48", "magic", magicPage)}
-        {tab("treasure_chest_icon_48", "inventory", inventoryPage)}
-        {tab("bust_icon_48", "profile", profilePage)}
+        {tab("stats_chart_sharp_icon_48", "stats")}
+        {tab("sword_fill_icon_48", "combat")}
+        {tab("magic_wand_fill_icon_48", "magic")}
+        {tab("treasure_chest_icon_48", "inventory")}
+        {tab("bust_icon_48", "profile")}
       </div>
       <div className="flex-1 overflow-auto">
         <div
