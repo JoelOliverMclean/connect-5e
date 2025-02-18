@@ -1,10 +1,11 @@
+import Image from "next/image";
 import React from "react";
 
 const styles = {
   statWrapper:
-    "text-center rounded-lg p-1 border border-1 border-yellow-700 bg-red-950 flex flex-col shadow-md shadow-red-950",
+    "text-center rounded-lg p-1 border border-1 border-yellow-700 bg-red-950 flex flex-col shadow-md shadow-yellow-950",
   passiveWrapper:
-    "text-center rounded-lg p-1 border border-1 border-red-800 bg-gray-600 shadow-md shadow-gray-800",
+    "text-center rounded-lg p-1 border border-1 border-red-800 bg-slate-800 shadow-md shadow-red-950",
   statLabel: "text-xs truncate",
   statPrimary: "text-3xl font-bold",
   statSecondary: "font-semibold flex-1",
@@ -17,33 +18,33 @@ function getModifier(level) {
 
 function CharacterSheetStats() {
   const stats = {
-    strength: { value: 12, proficient: false },
-    dexterity: { value: 14, proficient: true },
-    constitution: { value: 9, proficient: false },
-    intelligence: { value: 10, proficient: false },
-    wisdom: { value: 11, proficient: false },
-    charisma: { value: 17, proficient: true },
+    strength: { value: 16, proficient: true }, // Core stat for a Strength-based Fighter
+    dexterity: { value: 12, proficient: false }, // Moderate for initiative & AC
+    constitution: { value: 14, proficient: true }, // Essential for HP & durability
+    intelligence: { value: 10, proficient: false }, // Not crucial for Fighters
+    wisdom: { value: 12, proficient: false }, // Useful for Perception & Survival
+    charisma: { value: 10, proficient: false }, // Fighters don’t usually need high Charisma
   };
 
   const skills = [
-    { name: "Acrobatics", mod: 1, proficient: false, expert: false }, // Dexterity
-    { name: "Animal Handling", mod: 4, proficient: true, expert: false }, // Wisdom
-    { name: "Arcana", mod: 3, proficient: true, expert: false }, // Intelligence
-    { name: "Athletics", mod: 0, proficient: false, expert: false }, // Strength
-    { name: "Deception", mod: 5, proficient: true, expert: true }, // Charisma
-    { name: "History", mod: 3, proficient: false, expert: false }, // Intelligence
-    { name: "Insight", mod: 4, proficient: true, expert: false }, // Wisdom
-    { name: "Intimidation", mod: 5, proficient: true, expert: false }, // Charisma
-    { name: "Investigation", mod: 3, proficient: false, expert: false }, // Intelligence
-    { name: "Medicine", mod: 4, proficient: false, expert: false }, // Wisdom
-    { name: "Nature", mod: 3, proficient: false, expert: false }, // Intelligence
-    { name: "Perception", mod: 4, proficient: true, expert: false }, // Wisdom
-    { name: "Performance", mod: 5, proficient: true, expert: false }, // Charisma
-    { name: "Persuasion", mod: 5, proficient: true, expert: true }, // Charisma
-    { name: "Religion", mod: 3, proficient: false, expert: false }, // Intelligence
-    { name: "Sleight of Hand", mod: 1, proficient: false, expert: false }, // Dexterity
-    { name: "Stealth", mod: 1, proficient: false, expert: false }, // Dexterity
-    { name: "Survival", mod: 4, proficient: true, expert: false }, // Wisdom
+    { name: "Acrobatics", mod: 2, proficient: false, expert: false }, // Dexterity
+    { name: "Animal Handling", mod: 2, proficient: false, expert: false }, // Wisdom
+    { name: "Arcana", mod: 1, proficient: false, expert: false }, // Intelligence
+    { name: "Athletics", mod: 5, proficient: true, expert: false }, // Strength (Important for Fighters)
+    { name: "Deception", mod: 2, proficient: false, expert: false }, // Charisma
+    { name: "History", mod: 1, proficient: false, expert: false }, // Intelligence
+    { name: "Insight", mod: 2, proficient: false, expert: false }, // Wisdom
+    { name: "Intimidation", mod: 4, proficient: true, expert: false }, // Charisma (Often useful for Fighters)
+    { name: "Investigation", mod: 1, proficient: false, expert: false }, // Intelligence
+    { name: "Medicine", mod: 2, proficient: false, expert: false }, // Wisdom
+    { name: "Nature", mod: 1, proficient: false, expert: false }, // Intelligence
+    { name: "Perception", mod: 4, proficient: true, expert: false }, // Wisdom (Essential for awareness)
+    { name: "Performance", mod: 2, proficient: false, expert: false }, // Charisma
+    { name: "Persuasion", mod: 2, proficient: false, expert: false }, // Charisma
+    { name: "Religion", mod: 1, proficient: false, expert: false }, // Intelligence
+    { name: "Sleight of Hand", mod: 2, proficient: false, expert: false }, // Dexterity
+    { name: "Stealth", mod: 2, proficient: false, expert: false }, // Dexterity
+    { name: "Survival", mod: 4, proficient: true, expert: false }, // Wisdom (Useful for tracking, wilderness survival)
   ];
 
   const statBlock = (label, stat) => (
@@ -62,9 +63,21 @@ function CharacterSheetStats() {
     </div>
   );
 
+  const showAbilityScoreHelp = () => {};
+
   const mainStatBlock = (
     <div className="flex flex-col gap-1">
-      <h2 className="text-center text-xl">Ability Scores</h2>
+      <div className="flex justify-center gap-1 items-center">
+        <h2 className="text-center text-xl">Ability Scores</h2>
+        <div className="p-1 cursor-pointer" onClick={showAbilityScoreHelp}>
+          <Image
+            src={"/icons/help_icon_48.png"}
+            width={16}
+            height={16}
+            alt="ability scores help"
+          />
+        </div>
+      </div>
       <div className="flex flex-col gap-2">
         <div className="grid grid-cols-3 gap-2">
           {statBlock("Strength", stats.strength)}
@@ -86,17 +99,28 @@ function CharacterSheetStats() {
 
   const passiveBlock = (name) => (
     <div className={styles.passiveWrapper}>
-      <h3 className={styles.statLabel}>Passive</h3>
       <h3 className={styles.statLabel}>{name}</h3>
       <p className={styles.statPrimary}>
-        {getModifier(10 + (skills.find((s) => s.name === name)?.mod ?? 0) * 2)}
+        {10 + (skills.find((s) => s.name === name)?.mod ?? 0)}
       </p>
     </div>
   );
 
+  const showPassiveStatsHelp = () => {};
+
   const passiveStats = (
     <div className="flex flex-col gap-1">
-      <h2 className="text-center text-xl">Passive Stats</h2>
+      <div className="flex justify-center gap-1 items-center">
+        <h2 className="text-center text-xl">Passive Stats</h2>
+        <div className="p-1 cursor-pointer" onClick={showPassiveStatsHelp}>
+          <Image
+            src={"/icons/help_icon_48.png"}
+            width={16}
+            height={16}
+            alt="passive stats help"
+          />
+        </div>
+      </div>
       <div className="grid grid-cols-3 gap-2">
         {passiveBlock("Perception")}
         {passiveBlock("Insight")}
@@ -107,14 +131,33 @@ function CharacterSheetStats() {
 
   const skillCell = (skill) => (
     <div className="flex items-end shadow shadow-red-800 border px-1 border-red-800 bg-red-950 rounded-md">
-      <div className="flex-1 text-sm">{skill.name}</div>
+      <div className="flex-1 text-sm">
+        <p>
+          {skill.name}
+          <span className="text-yellow-500">
+            {skill.expert ? "**" : skill.proficient ? "*" : ""}
+          </span>
+        </p>
+      </div>
       <div className="font-bold">{getModifier(10 + skill.mod)}</div>
     </div>
   );
 
+  const showSkillsHelp = () => {};
+
   const skillStats = (
     <div className="flex flex-col gap-1">
-      <h2 className="text-center text-xl">Skills</h2>
+      <div className="flex justify-center gap-1 items-center">
+        <h2 className="text-center text-xl">Skills</h2>
+        <div className="p-1 cursor-pointer" onClick={showSkillsHelp}>
+          <Image
+            src={"/icons/help_icon_48.png"}
+            width={16}
+            height={16}
+            alt="ability scores help"
+          />
+        </div>
+      </div>
       <div className="flex flex-col gap-2">
         <div className="grid grid-cols-2 gap-2">
           {skills.map((skill) => (
@@ -140,7 +183,7 @@ function CharacterSheetStats() {
   );
 
   return (
-    <div className="flex flex-col gap-2 px-2">
+    <div className="flex flex-col gap-2 p-2">
       {mainStatBlock}
       {passiveStats}
       {skillStats}
