@@ -1,10 +1,11 @@
+import Image from "next/image";
 import React from "react";
 
 const styles = {
   statWrapper:
-    "text-center rounded-lg p-1 border border-1 border-yellow-700 bg-red-950 flex flex-col shadow-md shadow-red-950",
+    "text-center rounded-lg p-1 border border-1 border-yellow-700 bg-red-950 flex flex-col shadow-md shadow-yellow-950",
   passiveWrapper:
-    "text-center rounded-lg p-1 border border-1 border-red-800 bg-gray-600 shadow-md shadow-gray-800",
+    "text-center rounded-lg p-1 border border-1 border-red-800 bg-slate-800 shadow-md shadow-red-950",
   statLabel: "text-xs truncate",
   statPrimary: "text-3xl font-bold",
   statSecondary: "font-semibold flex-1",
@@ -62,9 +63,21 @@ function CharacterSheetStats() {
     </div>
   );
 
+  const showAbilityScoreHelp = () => {};
+
   const mainStatBlock = (
     <div className="flex flex-col gap-1">
-      <h2 className="text-center text-xl">Ability Scores</h2>
+      <div className="flex justify-center gap-1 items-center">
+        <h2 className="text-center text-xl">Ability Scores</h2>
+        <div className="p-1 cursor-pointer" onClick={showAbilityScoreHelp}>
+          <Image
+            src={"/icons/help_icon_48.png"}
+            width={16}
+            height={16}
+            alt="ability scores help"
+          />
+        </div>
+      </div>
       <div className="flex flex-col gap-2">
         <div className="grid grid-cols-3 gap-2">
           {statBlock("Strength", stats.strength)}
@@ -94,9 +107,21 @@ function CharacterSheetStats() {
     </div>
   );
 
+  const showPassiveStatsHelp = () => {};
+
   const passiveStats = (
     <div className="flex flex-col gap-1">
-      <h2 className="text-center text-xl">Passive Stats</h2>
+      <div className="flex justify-center gap-1 items-center">
+        <h2 className="text-center text-xl">Passive Stats</h2>
+        <div className="p-1 cursor-pointer" onClick={showPassiveStatsHelp}>
+          <Image
+            src={"/icons/help_icon_48.png"}
+            width={16}
+            height={16}
+            alt="passive stats help"
+          />
+        </div>
+      </div>
       <div className="grid grid-cols-3 gap-2">
         {passiveBlock("Perception")}
         {passiveBlock("Insight")}
@@ -107,14 +132,33 @@ function CharacterSheetStats() {
 
   const skillCell = (skill) => (
     <div className="flex items-end shadow shadow-red-800 border px-1 border-red-800 bg-red-950 rounded-md">
-      <div className="flex-1 text-sm">{skill.name}</div>
+      <div className="flex-1 text-sm">
+        <p>
+          {skill.name}
+          <span className="text-yellow-500">
+            {skill.expert ? "**" : skill.proficient ? "*" : ""}
+          </span>
+        </p>
+      </div>
       <div className="font-bold">{getModifier(10 + skill.mod)}</div>
     </div>
   );
 
+  const showSkillsHelp = () => {};
+
   const skillStats = (
     <div className="flex flex-col gap-1">
-      <h2 className="text-center text-xl">Skills</h2>
+      <div className="flex justify-center gap-1 items-center">
+        <h2 className="text-center text-xl">Skills</h2>
+        <div className="p-1 cursor-pointer" onClick={showSkillsHelp}>
+          <Image
+            src={"/icons/help_icon_48.png"}
+            width={16}
+            height={16}
+            alt="ability scores help"
+          />
+        </div>
+      </div>
       <div className="flex flex-col gap-2">
         <div className="grid grid-cols-2 gap-2">
           {skills.map((skill) => (
@@ -140,7 +184,7 @@ function CharacterSheetStats() {
   );
 
   return (
-    <div className="flex flex-col gap-2 px-2">
+    <div className="flex flex-col gap-2 p-2">
       {mainStatBlock}
       {passiveStats}
       {skillStats}

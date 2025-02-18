@@ -45,22 +45,60 @@ function CharacterSheetNav({ children }) {
 
   const openStatsSettings = () => {};
 
+  const currentHealth = 20; // Example current health
+  const maxHealth = 31; // Example max health
+  const healthPercentage = (currentHealth / maxHealth) * 100; // Calculate percentage
+
   const hpCell = (
-    <div className="text-center flex flex-col pt-2 px-2 pb-1 gap-1 bg-green-800 rounded-lg">
-      <p className="text-3xl font-bold">
-        <span className="bg-gray-900 rounded-lg px-2 me-1">31</span>
-        {"/"}
-        <span className="bg-gray-900 rounded-lg px-2 ms-1">31</span>
-      </p>
-      <p className="text-xs">HP</p>
+    <div className="flex flex-col gap-1">
+      <div
+        className="flex-1 justify-center text-center flex flex-col pt-1 gap-1 rounded-lg border border-[var(--foreground)]"
+        style={{
+          background: `linear-gradient(to right, #166534 ${healthPercentage}%, #991b1b ${healthPercentage}%)`,
+        }}
+      >
+        <p className="text-3xl font-bold px-1">
+          <span className=" rounded-lg px-1">{currentHealth}</span>
+          {"/"}
+          <span className=" rounded-lg px-1">{maxHealth}</span>
+        </p>
+      </div>
+      <p className="text-xs text-center">Hit Points</p>
+    </div>
+  );
+
+  const deathSavesAndHitDie = (
+    <div className="flex flex-col gap-1">
+      <div className="flex-1 text-center flex gap-2">
+        <div className="flex-1 flex flex-col gap-1">
+          <p className="text-xs">Successes</p>
+          <div className="w-[64px] h-full flex justify-evenly items-center rounded-lg border border-[var(--foreground)] bg-green-800">
+            <div className="rounded p-1 border border-white"></div>
+            <div className="rounded p-1 border border-white"></div>
+            <div className="rounded p-1 border border-white"></div>
+          </div>
+        </div>
+        <div className="flex-1 flex flex-col gap-1">
+          <p className="text-xs">Failures</p>
+          <div className="w-[64px] h-full flex justify-evenly items-center rounded-lg border border-[var(--foreground)] bg-red-800">
+            <div className="rounded p-1 border border-white"></div>
+            <div className="rounded p-1 border border-white"></div>
+            <div className="rounded p-1 border border-white"></div>
+          </div>
+        </div>
+      </div>
+      <p className="text-xs text-center">Death Saves</p>
     </div>
   );
 
   const header = (
     <div>
       <div className="text-center text-xl font-bold">Flick McPlumbs</div>
-      <div className="text-center text-xs">Human | Fighter | Level 3</div>
-      <div className="flex p-2 items-center justify-center gap-2">{hpCell}</div>
+      <div className="text-center text-xs">Male Human | Fighter 3</div>
+      <div className="flex p-2 justify-center gap-2">
+        {hpCell}
+        {deathSavesAndHitDie}
+      </div>
     </div>
   );
 
