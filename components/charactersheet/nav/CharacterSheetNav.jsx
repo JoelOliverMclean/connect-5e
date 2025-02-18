@@ -110,7 +110,13 @@ function CharacterSheetNav({ children }) {
           <div className="text-xs">Male Human | Fighter 3</div>
         </div>
         <div className="flex-col flex gap-1">
-          <div className="flex-1 py-1 mt-1 flex items-center justify-center border border-white rounded-lg bg-slate-800">
+          <div className="flex-1 py-1 px-2 mt-1 flex items-center justify-center border border-white rounded-lg bg-slate-800">
+            <p className="text-xs">30ft</p>
+          </div>
+          <p className="text-xs text-center">Speed</p>
+        </div>
+        <div className="flex-col flex gap-1">
+          <div className="flex-1 py-1 px-2 mt-1 flex items-center justify-center border border-white rounded-lg bg-slate-800">
             <p className="text-xs">Invisible</p>
           </div>
           <p className="text-xs text-center">Condition</p>

@@ -4,6 +4,8 @@ import React from "react";
 const styles = {
   statWrapper:
     "text-center rounded-lg p-1 border border-1 border-yellow-700 bg-red-950 flex flex-col shadow-md shadow-yellow-950",
+  savesWrapper:
+    "text-center rounded-lg p-1 border border-1 border-white bg-yellow-800 flex flex-col shadow shadow-gray-500",
   passiveWrapper:
     "text-center rounded-lg p-1 border border-1 border-red-800 bg-slate-800 shadow-md shadow-red-950",
   statLabel: "text-xs truncate",
@@ -17,6 +19,8 @@ function getModifier(level) {
 }
 
 function CharacterSheetStats() {
+  const pb = 2;
+
   const stats = {
     strength: { value: 16, proficient: true }, // Core stat for a Strength-based Fighter
     dexterity: { value: 12, proficient: false }, // Moderate for initiative & AC
@@ -92,6 +96,48 @@ function CharacterSheetStats() {
             P
           </span>
           = Proficient
+        </div>
+      </div>
+    </div>
+  );
+
+  function getSaveModifier(stat) {
+    var mod =
+      Math.floor(parseFloat((stat.value - 10) / 2)) +
+      (stat.proficient ? pb : 0);
+    return (mod < 0 ? "" : "+") + mod;
+  }
+
+  const savesBlock = (label, stat) => (
+    <div className={styles.savesWrapper}>
+      <h3 className={styles.statLabel}>{label}</h3>
+      <p className={styles.statPrimary}>{getSaveModifier(stat)}</p>
+    </div>
+  );
+
+  const showSavingStatsHelp = () => {};
+
+  const saveStats = (
+    <div className="flex flex-col gap-1">
+      <div className="flex justify-center gap-1 items-center">
+        <h2 className="text-center text-xl">Saving Throws</h2>
+        <div className="p-1 cursor-pointer" onClick={showSavingStatsHelp}>
+          <Image
+            src={"/icons/help_icon_48.png"}
+            width={16}
+            height={16}
+            alt="ability scores help"
+          />
+        </div>
+      </div>
+      <div className="flex flex-col gap-2">
+        <div className="grid grid-cols-3 gap-2">
+          {savesBlock("Strength", stats.strength)}
+          {savesBlock("Dexterity", stats.dexterity)}
+          {savesBlock("Constitution", stats.constitution)}
+          {savesBlock("Intelligence", stats.intelligence)}
+          {savesBlock("Wisdom", stats.wisdom)}
+          {savesBlock("Charisma", stats.charisma)}
         </div>
       </div>
     </div>
@@ -185,6 +231,7 @@ function CharacterSheetStats() {
   return (
     <div className="flex flex-col gap-2 p-2">
       {mainStatBlock}
+      {saveStats}
       {passiveStats}
       {skillStats}
     </div>
