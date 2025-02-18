@@ -1,10 +1,10 @@
 "use client";
-import CharacterSheetNav from "@/components/charactersheet/nav/CharacterSheetNav";
+import CharacterSheet from "@/components/charactersheet/CharacterSheet";
 import Image from "next/image";
 import React, { useState } from "react";
 
 function CharacterSheetPage() {
-  return <CharacterSheetNav></CharacterSheetNav>;
+  return <CharacterSheet></CharacterSheet>;
 }
 
 export default CharacterSheetPage;

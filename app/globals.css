@@ -43,3 +43,21 @@ body {
   max-width: 100%; /* Adapts to parent container */
   display: block; /* Ensures block-level behavior */
 }
+
+.fadeInOut {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 2s ease;
+}
+
+.fadeInOut.visible {
+  opacity: 1;
+  max-height: 1000px; /* Large enough to fit content */
+}
+
+.fadeInOut.hide {
+  opacity: 0;
+  max-height: 0;
+  transition: opacity 2s ease; /* Ensure smooth fade-out */
+}

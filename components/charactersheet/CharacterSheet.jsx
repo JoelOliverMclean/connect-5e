@@ -1,30 +1,22 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
-import CharacterSheetStats from "../stats/CharacterSheetStats";
-import CharacterSheetCombat from "../combat/CharacterSheetCombat";
-import CharacterSheetMagic from "../magic/CharacterSheetMagic";
-import CharacterSheetInventory from "../inventory/CharacterSheetInventory";
-import CharacterSheetProfile from "../profile/CharacterSheetProfile";
+import React, { useEffect, useState } from "react";
+import CharacterSheetStats from "./stats/CharacterSheetStats";
+import CharacterSheetCombat from "./combat/CharacterSheetCombat";
+import CharacterSheetMagic from "./magic/CharacterSheetMagic";
+import CharacterSheetInventory from "./inventory/CharacterSheetInventory";
+import CharacterSheetProfile from "./profile/CharacterSheetProfile";
 
 const styles = {
   bottomBarButton:
     "w-[48px] flex justify-center items-center rounded-full duration-300",
 };
 
-function CharacterSheetNav({ children }) {
-  const statsPage = <CharacterSheetStats />;
-  const combatPage = <CharacterSheetCombat />;
-  const magicPage = <CharacterSheetMagic />;
-  const inventoryPage = <CharacterSheetInventory />;
-  const profilePage = <CharacterSheetProfile />;
-
+function CharacterSheet({ children }) {
   const [selected, setSelected] = useState("stats");
-  const [page, setPage] = useState(statsPage);
 
   const changeTab = (name, page) => {
     setSelected(name);
-    setPage(page);
   };
 
   const tab = (icon, name, page) => (
@@ -124,7 +116,7 @@ function CharacterSheetNav({ children }) {
           <p className="text-xs text-center">Condition</p>
         </div>
       </div>
-      <div className="flex justify-center gap-2">
+      <div className="flex items-end justify-center gap-2">
         {hpCell}
         {hitDie}
         {deathSaves}
@@ -141,7 +133,39 @@ function CharacterSheetNav({ children }) {
         {tab("treasure_chest_icon_48", "inventory", inventoryPage)}
         {tab("bust_icon_48", "profile", profilePage)}
       </div>
-      <div className="flex-1 overflow-auto">{page}</div>
+      <div className="flex-1 overflow-auto">
+        <div
+          className={"fadeInOut " + (selected === "stats" ? "visible" : "hide")}
+        >
+          <CharacterSheetStats />
+        </div>
+        <div
+          className={
+            "fadeInOut " + (selected === "combat" ? "visible" : "hide")
+          }
+        >
+          <CharacterSheetCombat />
+        </div>
+        <div
+          className={"fadeInOut " + (selected === "magic" ? "visible" : "hide")}
+        >
+          <CharacterSheetMagic />
+        </div>
+        <div
+          className={
+            "fadeInOut " + (selected === "inventory" ? "visible" : "hide")
+          }
+        >
+          <CharacterSheetInventory />
+        </div>
+        <div
+          className={
+            "fadeInOut " + (selected === "profile" ? "visible" : "hide")
+          }
+        >
+          <CharacterSheetProfile />
+        </div>
+      </div>
       <div className="py-1 border-b border-red-900 flex-grow-0 flex-shrink-0 flex-auto">
         {header}
       </div>
@@ -149,4 +173,4 @@ function CharacterSheetNav({ children }) {
   );
 }
 
-export default CharacterSheetNav;
+export default CharacterSheet;
