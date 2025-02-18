@@ -3,6 +3,8 @@ header [
   death saves
   hit die
   darkvision
+  condition
+  speed
 ]
 
 stats [

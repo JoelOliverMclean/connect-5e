@@ -52,12 +52,12 @@ function CharacterSheetNav({ children }) {
   const hpCell = (
     <div className="flex-1 flex flex-col gap-1">
       <div
-        className="flex-1 justify-center text-center flex flex-col pt-1 gap-1 rounded-lg border border-[var(--foreground)]"
+        className="flex-1 justify-center text-center flex flex-col pt-[2px] gap-1 rounded-lg border border-[var(--foreground)]"
         style={{
           background: `linear-gradient(to right, #166534 ${healthPercentage}%, #991b1b ${healthPercentage}%)`,
         }}
       >
-        <p className="text-2xl font-bold px-1">
+        <p className="text-xl font-bold px-1">
           <span className=" rounded-lg px-1">{currentHealth}</span>
           {"/"}
           <span className=" rounded-lg px-1">{maxHealth}</span>
@@ -68,9 +68,11 @@ function CharacterSheetNav({ children }) {
   );
 
   const hitDie = (
-    <div className="flex-1 flex flex-col gap-1">
-      <div className="flex-1 justify-center text-center flex flex-col pt-1 rounded-lg border border-red-600 bg-slate-800">
-        <p className="text-xl font-bold px-1">3 / 3</p>
+    <div className="flex-1 flex flex-col justify-end items-center gap-1">
+      <div className="items-end justify-center gap-2 text-center flex p-[6px] border rounded-lg">
+        <div className="rounded p-1 border border-white"></div>
+        <div className="rounded p-1 border border-white"></div>
+        <div className="rounded p-1 border border-white"></div>
       </div>
       <p className="text-xs text-center">
         Hit Die <span className="text-yellow-500">(d12)</span>
@@ -83,7 +85,7 @@ function CharacterSheetNav({ children }) {
       <div className="flex-1 text-center flex gap-2">
         <div className="flex-1 flex flex-col items-center gap-1">
           <p className="text-xs">Successes</p>
-          <div className="w-[64px] h-full flex justify-evenly items-center rounded-lg border border-[var(--foreground)] bg-green-800">
+          <div className="w-[64px] h-[20px] flex justify-evenly items-center rounded-lg border border-[var(--foreground)] bg-green-800">
             <div className="rounded p-1 border border-white"></div>
             <div className="rounded p-1 border border-white"></div>
             <div className="rounded p-1 border border-white"></div>
