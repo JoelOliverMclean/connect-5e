@@ -1,0 +1,34 @@
+header [
+  HP
+  death saves
+  hit die
+  darkvision
+]
+
+stats [
+  ability scores
+  passives
+  skills
+]
+
+combat [
+  AC
+  weapons
+  armor
+  abilities
+]
+
+magic [
+  spells
+  slots
+]
+
+inventory [
+  wealth
+  items
+]
+
+profile [
+  bio
+  alignment
+]
