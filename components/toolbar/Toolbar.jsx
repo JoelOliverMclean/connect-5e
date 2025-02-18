@@ -9,9 +9,7 @@ export default function Toolbar() {
       <div className="flex-1 text-2xl font-bold">
         <Link href={"/"}>Connect5e</Link>
       </div>
-      <div className="flex-1 flex justify-end">
-        <ToolbarMenu />
-      </div>
+      <div className="flex-1 flex justify-end">{/* <ToolbarMenu /> */}</div>
     </div>
   );
 }

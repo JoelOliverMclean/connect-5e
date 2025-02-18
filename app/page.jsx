@@ -8,11 +8,11 @@ export default async function Home() {
 
   return (
     <div className="h-[100%] overflow-auto">
-      {session?.user ? (
+      {/* {session?.user ? (
         <div>Logged in as {session.user.name}</div>
       ) : (
         <div>Not logged in</div>
-      )}
+      )} */}
       <div className="p-3">
         <Link
           className="px-3 py-1 bg-red-800 hover:bg-red-600 rounded-md"
