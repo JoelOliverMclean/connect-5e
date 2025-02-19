@@ -16,9 +16,12 @@ stats [
 
 combat [
   AC
+  attacks per action
+  initiative
   weapons
   armor
   abilities
+  bonus actions
 ]
 
 magic [

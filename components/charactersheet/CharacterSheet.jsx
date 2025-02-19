@@ -61,7 +61,7 @@ function CharacterSheet({ children }) {
 
   const hitDie = (
     <div className="flex-1 flex flex-col justify-end items-center gap-1">
-      <div className="items-end justify-center gap-2 text-center flex p-[6px] border rounded-lg">
+      <div className="items-end justify-center gap-2 text-center flex py-1 border rounded-lg bg-yellow-800 px-2">
         <div className="rounded p-1 border border-white"></div>
         <div className="rounded p-1 border border-white"></div>
         <div className="rounded p-1 border border-white"></div>
@@ -77,7 +77,7 @@ function CharacterSheet({ children }) {
       <div className="flex-1 text-center flex gap-2">
         <div className="flex-1 flex flex-col items-center gap-1">
           <p className="text-xs">Successes</p>
-          <div className="w-[64px] h-[20px] flex justify-evenly items-center rounded-lg border border-[var(--foreground)] bg-green-800">
+          <div className="w-[64px] h-[100%] py-1 flex justify-evenly items-center rounded-lg border border-[var(--foreground)] bg-green-800">
             <div className="rounded p-1 border border-white"></div>
             <div className="rounded p-1 border border-white"></div>
             <div className="rounded p-1 border border-white"></div>
@@ -85,7 +85,7 @@ function CharacterSheet({ children }) {
         </div>
         <div className="flex-1 flex flex-col items-center gap-1">
           <p className="text-xs">Failures</p>
-          <div className="w-[64px] h-full flex justify-evenly items-center rounded-lg border border-[var(--foreground)] bg-red-800">
+          <div className="w-[64px] h-[100%] py-1 flex justify-evenly items-center rounded-lg border border-[var(--foreground)] bg-red-800">
             <div className="rounded p-1 border border-white"></div>
             <div className="rounded p-1 border border-white"></div>
             <div className="rounded p-1 border border-white"></div>
@@ -100,7 +100,7 @@ function CharacterSheet({ children }) {
     <div className="px-2 flex flex-col gap-2">
       <div className="flex gap-2">
         <div className="flex-1">
-          <div className="text-xl font-bold">Flick McPlumbs</div>
+          <div className="text-lg font-bold">Flick McPlumbs</div>
           <div className="text-xs">Male Human | Fighter 3</div>
         </div>
         <div className="flex-col flex gap-1">
