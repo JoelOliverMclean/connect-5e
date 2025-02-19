@@ -43,3 +43,44 @@ body {
   max-width: 100%; /* Adapts to parent container */
   display: block; /* Ensures block-level behavior */
 }
+
+.fadeInOut {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.fadeInOut.visible {
+  opacity: 1;
+  max-height: 1000px; /* Large enough to fit content */
+}
+
+.fadeInOut.hide {
+  opacity: 0;
+  max-height: 0;
+  transition: opacity 1s ease; /* Ensure smooth fade-out */
+}
+
+.accordion {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.accordion.visible {
+  max-height: 500px;
+}
+
+.accordion.hide {
+  max-height: 0;
+  transition: max-height 0.3s ease; /* Ensure smooth fade-out */
+}
+
+.one-line-ellipsis {
+  white-space: nowrap; /* Prevents text from wrapping */
+  overflow: hidden; /* Hides overflow text */
+  text-overflow: ellipsis; /* Adds ellipsis when text overflows */
+  width: 100%; /* Adjust width as needed */
+  display: block; /* Ensures it behaves as a block */
+}

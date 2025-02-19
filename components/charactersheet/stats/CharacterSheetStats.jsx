@@ -1,5 +1,7 @@
 import Image from "next/image";
 import React from "react";
+import { pb, stats, skills } from "@/mockdata/characterSheetMockData";
+import { getModifier } from "@/utils/CharacterSheetUtils";
 
 const styles = {
   statWrapper:
@@ -13,44 +15,7 @@ const styles = {
   statSecondary: "font-semibold flex-1",
 };
 
-function getModifier(level) {
-  var mod = Math.floor(parseFloat((level - 10) / 2));
-  return (mod < 0 ? "" : "+") + mod;
-}
-
 function CharacterSheetStats() {
-  const pb = 2;
-
-  const stats = {
-    strength: { value: 16, proficient: true }, // Core stat for a Strength-based Fighter
-    dexterity: { value: 12, proficient: false }, // Moderate for initiative & AC
-    constitution: { value: 14, proficient: true }, // Essential for HP & durability
-    intelligence: { value: 10, proficient: false }, // Not crucial for Fighters
-    wisdom: { value: 12, proficient: false }, // Useful for Perception & Survival
-    charisma: { value: 10, proficient: false }, // Fighters don’t usually need high Charisma
-  };
-
-  const skills = [
-    { name: "Acrobatics", mod: 2, proficient: false, expert: false }, // Dexterity
-    { name: "Animal Handling", mod: 2, proficient: false, expert: false }, // Wisdom
-    { name: "Arcana", mod: 1, proficient: false, expert: false }, // Intelligence
-    { name: "Athletics", mod: 5, proficient: true, expert: false }, // Strength (Important for Fighters)
-    { name: "Deception", mod: 2, proficient: false, expert: false }, // Charisma
-    { name: "History", mod: 1, proficient: false, expert: false }, // Intelligence
-    { name: "Insight", mod: 2, proficient: false, expert: false }, // Wisdom
-    { name: "Intimidation", mod: 4, proficient: true, expert: false }, // Charisma (Often useful for Fighters)
-    { name: "Investigation", mod: 1, proficient: false, expert: false }, // Intelligence
-    { name: "Medicine", mod: 2, proficient: false, expert: false }, // Wisdom
-    { name: "Nature", mod: 1, proficient: false, expert: false }, // Intelligence
-    { name: "Perception", mod: 4, proficient: true, expert: false }, // Wisdom (Essential for awareness)
-    { name: "Performance", mod: 2, proficient: false, expert: false }, // Charisma
-    { name: "Persuasion", mod: 2, proficient: false, expert: false }, // Charisma
-    { name: "Religion", mod: 1, proficient: false, expert: false }, // Intelligence
-    { name: "Sleight of Hand", mod: 2, proficient: false, expert: false }, // Dexterity
-    { name: "Stealth", mod: 2, proficient: false, expert: false }, // Dexterity
-    { name: "Survival", mod: 4, proficient: true, expert: false }, // Wisdom (Useful for tracking, wilderness survival)
-  ];
-
   const statBlock = (label, stat) => (
     <div className={styles.statWrapper}>
       <h3 className={styles.statLabel}>{label}</h3>
@@ -91,7 +56,7 @@ function CharacterSheetStats() {
           {statBlock("Wisdom", stats.wisdom)}
           {statBlock("Charisma", stats.charisma)}
         </div>
-        <div className="flex-1 text-end text-xs flex gap-1">
+        <div className="flex-1 text-end text-xs flex gap-1 px-1">
           <span className="bg-yellow-500 text-black font-bold px-1 rounded-full">
             P
           </span>

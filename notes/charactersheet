@@ -3,6 +3,8 @@ header [
   death saves
   hit die
   darkvision
+  condition
+  speed
 ]
 
 stats [
@@ -14,9 +16,12 @@ stats [
 
 combat [
   AC
+  attacks per action
+  initiative
   weapons
   armor
   abilities
+  bonus actions
 ]
 
 magic [
