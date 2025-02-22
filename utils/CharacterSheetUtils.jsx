@@ -1,6 +1,10 @@
-function getModifier(level) {
-  var mod = Math.floor(parseFloat((level - 10) / 2));
+function getModifier(mod) {
   return (mod < 0 ? "" : "+") + mod;
 }
 
-export { getModifier };
+function getModifierFromStat(stat) {
+  var mod = Math.floor(parseFloat((stat - 10) / 2));
+  return getModifier(mod);
+}
+
+export { getModifier, getModifierFromStat };
