@@ -283,11 +283,13 @@ const characterSheet = {
     personal: [
       {
         item: weapons.swordOfOrcStrength,
+        category: "weapon",
         quantity: 1,
         equipped: true,
       },
       {
         item: weapons.crossbowLight,
+        category: "weapon",
         quantity: 1,
         equipped: true,
       },
