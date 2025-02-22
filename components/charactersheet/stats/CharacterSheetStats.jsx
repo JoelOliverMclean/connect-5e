@@ -172,17 +172,14 @@ function CharacterSheetStats({ characterSheet }) {
 
   const skillCell = (skill) => (
     <div
-      className={`flex items-end shadow shadow-red-800 rounded-md border px-1 ${
-        skill.proficient ? "border-yellow-400" : "border-red-950"
+      className={`flex items-end shadow rounded-md border px-1 ${
+        skill.proficient
+          ? "border-yellow-400 shadow-yellow-600"
+          : "border-red-950 shadow-red-800"
       } ${skill.expert ? "bg-yellow-800" : "bg-red-950"}`}
     >
       <div className="flex-1 text-sm">
-        <p>
-          {skill.name}
-          <span className="text-yellow-500">
-            {skill.expert ? "**" : skill.proficient ? "*" : ""}
-          </span>
-        </p>
+        <p>{skill.name}</p>
       </div>
       <div className="font-bold">{getModifier(skill.mod)}</div>
     </div>
