@@ -101,8 +101,8 @@ function CharacterSheet({ children }) {
 
   const deathSaves = (
     <div className="flex-1 flex flex-col gap-1">
-      <div className="flex-1 text-center flex gap-2">
-        <div className="flex-1 flex flex-col items-center gap-1">
+      <div className="flex-1 justify-center flex gap-2">
+        <div className="flex flex-col items-center gap-1">
           <p className="text-xs">Successes</p>
           <div className="w-[64px] h-[100%] py-1 flex justify-evenly items-center rounded-lg border border-[var(--foreground)] bg-green-800">
             {Array.from({ length: 3 }, (_, index) => (
@@ -116,7 +116,7 @@ function CharacterSheet({ children }) {
             ))}
           </div>
         </div>
-        <div className="flex-1 flex flex-col items-center gap-1">
+        <div className="flex flex-col items-center gap-1">
           <p className="text-xs">Failures</p>
           <div className="w-[64px] h-[100%] py-1 flex justify-evenly items-center rounded-lg border border-[var(--foreground)] bg-red-800">
             {Array.from({ length: 3 }, (_, index) => (
