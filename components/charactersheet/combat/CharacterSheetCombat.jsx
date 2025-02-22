@@ -1,6 +1,5 @@
 import Image from "next/image";
 import React from "react";
-import CombatWeapons from "./elements/CombatWeapons";
 import { getModifier, getModifierFromStat } from "@/utils/CharacterSheetUtils";
 import CombatAbilities from "./elements/CombatAbilities";
 import CombatActions from "./elements/CombatActions";
@@ -51,10 +50,9 @@ function CharacterSheetCombat({ characterSheet }) {
     <div className="flex flex-col p-2 gap-2">
       {topSection}
       {<CombatActions characterSheet={characterSheet} />}
-      {<CombatWeapons />}
-      {<CombatAbilities />}
-      {<CombatBonusActions />}
-      {<CombatReactions />}
+      {<CombatAbilities characterSheet={characterSheet} />}
+      {<CombatBonusActions characterSheet={characterSheet} />}
+      {<CombatReactions characterSheet={characterSheet} />}
     </div>
   );
 }
