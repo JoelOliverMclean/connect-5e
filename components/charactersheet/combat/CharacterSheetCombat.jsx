@@ -50,9 +50,9 @@ function CharacterSheetCombat({ characterSheet }) {
     <div className="flex flex-col p-2 gap-2">
       {topSection}
       {<CombatActions characterSheet={characterSheet} />}
-      {<CombatAbilities />}
-      {<CombatBonusActions />}
-      {<CombatReactions />}
+      {<CombatAbilities characterSheet={characterSheet} />}
+      {<CombatBonusActions characterSheet={characterSheet} />}
+      {<CombatReactions characterSheet={characterSheet} />}
     </div>
   );
 }

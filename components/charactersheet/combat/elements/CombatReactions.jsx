@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
+import Image from "next/image";
+import CombatFeatures from "./CombatFeatures";
 
-function CombatReactions() {
-  return (
-    <>
-      <h2 className="text-center text-xl">Reactions</h2>
-    </>
-  );
+function CombatReactions({ characterSheet }) {
+  const reactions = characterSheet
+    .features()
+    .filter((p) => p.type === "reaction");
+
+  if (reactions.length > 0)
+    return <CombatFeatures type="Reactions" features={reactions} />;
+  else return <></>;
 }
 
 export default CombatReactions;

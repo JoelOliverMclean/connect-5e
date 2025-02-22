@@ -17,46 +17,50 @@ function CombatActions({ characterSheet }) {
 
   const weaponActionsSection = (
     <>
-      <h3 className="text-center">Weapon Attacks</h3>
-      {characterSheet.inventory.personal
-        .filter((item) => item.category === "weapon" && item.equipped)
-        .map((weapon, index) => (
-          <div
-            key={index}
-            className="px-2 py-1 border rounded-lg bg-red-950 border-red-600"
-          >
-            <h3 className="">{weapon.item.name}</h3>
-            <div className="text-xs flex justify-between">
-              <div className="flex gap-2">
-                <div className="opacity-70">Hit/DC:</div>
-                <div>{getModifier(weapon.item.hitBonus)}</div>
+      <h3 className="text-center text-lg">Weapon Attacks</h3>
+      <div className="flex flex-col gap-1">
+        {characterSheet.inventory.personal
+          .filter((item) => item.category === "weapon" && item.equipped)
+          .map((weapon, index) => (
+            <div
+              key={index}
+              className="px-2 py-1 border rounded-lg bg-red-950 border-red-600"
+            >
+              <h3 className="font-bold">{weapon.item.name}</h3>
+              <div className="text-xs flex justify-between">
+                <div className="flex gap-2">
+                  <div className="opacity-70">Hit/DC:</div>
+                  <div>{getModifier(weapon.item.hitBonus)}</div>
+                </div>
+                <div className="flex gap-2">
+                  <div className="opacity-70">Range:</div>
+                  <div>{weapon.item.range}</div>
+                </div>
               </div>
-              <div className="flex gap-2">
-                <div className="opacity-70">Range:</div>
-                <div>{weapon.item.range}</div>
-              </div>
-            </div>
-            <div className="text-xs flex justify-between">
-              <div className="flex gap-2">
-                <div className="opacity-70">Damage:</div>
-                <div>
-                  {weapon.item.damage.map(
-                    (damage) =>
-                      `${damage.dice}${
-                        damage.bonus > 0 ? getModifier(damage.bonus) : ""
-                      } ${damage.type}`
-                  )}
+              <div className="text-xs flex justify-between">
+                <div className="flex gap-2">
+                  <div className="opacity-70">Damage:</div>
+                  <div>
+                    {weapon.item.damage
+                      .map(
+                        (damage) =>
+                          `${damage.dice}${
+                            damage.bonus > 0 ? getModifier(damage.bonus) : ""
+                          } ${damage.type}`
+                      )
+                      .join(", ")}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+      </div>
     </>
   );
 
   const actionsInCombatSection = (
     <>
-      <h3 className="text-center">Actions in Combat</h3>
+      <h3 className="text-center text-lg">Actions in Combat</h3>
       <div className="flex justify-center flex-wrap gap-[6px]">
         {actionsInCombat.map((action) => (
           <div
@@ -74,7 +78,6 @@ function CombatActions({ characterSheet }) {
 
   return (
     <>
-      <h3 className="text-center text-xl">Actions</h3>
       {weaponActionsSection}
       {actionsInCombatSection}
     </>

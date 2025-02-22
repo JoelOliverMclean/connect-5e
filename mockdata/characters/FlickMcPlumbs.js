@@ -78,9 +78,15 @@ const characterSheet = {
     saves: ["strength", "constitution"],
   },
   languages: [],
-  features: {
-    racial: [],
-    feats: [],
+  features() {
+    return this.class.reduce((arr, curr) => {
+      if (!curr) return arr;
+
+      const baseClassFeatures = curr.base.features ?? [];
+      const subClassFeatures = curr.subClass?.features ?? [];
+
+      return arr.concat(baseClassFeatures, subClassFeatures);
+    }, []);
   },
   traits: {
     racial: [],
