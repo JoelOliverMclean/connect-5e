@@ -1,6 +1,6 @@
 import React from "react";
 
-function CharacterSheetMagic() {
+function CharacterSheetMagic({ characterSheet }) {
   return <div>CharacterSheetMagic</div>;
 }
 

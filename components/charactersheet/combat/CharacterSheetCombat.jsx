@@ -1,14 +1,13 @@
 import Image from "next/image";
 import React from "react";
 import CombatWeapons from "./elements/CombatWeapons";
-import { AC, attacksPerAction, stats } from "@/mockdata/characterSheetMockData";
-import { getModifier } from "@/utils/CharacterSheetUtils";
+import { getModifier, getModifierFromStat } from "@/utils/CharacterSheetUtils";
 import CombatAbilities from "./elements/CombatAbilities";
 import CombatActions from "./elements/CombatActions";
 import CombatBonusActions from "./elements/CombatBonusActions";
 import CombatReactions from "./elements/CombatReactions";
 
-function CharacterSheetCombat() {
+function CharacterSheetCombat({ characterSheet }) {
   const showACHelp = () => {};
 
   const topSection = (
@@ -16,7 +15,9 @@ function CharacterSheetCombat() {
       <div className="grid grid-cols-3 justify-evenly gap-2">
         <div className="p-1 border rounded-lg border-red-600 bg-red-950 flex flex-col shadow-md shadow-red-950">
           <div className="relative flex-1 flex items-center justify-center">
-            <div className="text-center text-3xl pt-1">{AC}</div>
+            <div className="text-center text-3xl pt-1">
+              {characterSheet.armorClass.total()}
+            </div>
             <Image
               className="absolute top-0 right-0"
               src={"/icons/help_icon_48.png"}
@@ -29,14 +30,16 @@ function CharacterSheetCombat() {
         </div>
         <div className="p-1 border rounded-lg border-red-600 bg-red-950 shadow-md shadow-red-950">
           <div className="relative">
-            <p className="text-center text-3xl pt-1">{attacksPerAction}</p>
+            <p className="text-center text-3xl pt-1">
+              {characterSheet.attacksPerAction}
+            </p>
           </div>
           <h3 className="text-center text-xs px-1">Attacks</h3>
           <h3 className="text-center text-xs px-1">per Action</h3>
         </div>
         <div className="p-1 border rounded-lg border-red-600 bg-red-950 flex flex-col shadow-md shadow-red-950">
           <div className="flex-1 flex justify-center items-center text-center text-3xl">
-            {getModifier(stats.dexterity.value)}
+            {getModifierFromStat(characterSheet.abilityScores.dexterity)}
           </div>
           <h3 className="text-center text-xs px-1">Initiative</h3>
         </div>
@@ -47,7 +50,7 @@ function CharacterSheetCombat() {
   return (
     <div className="flex flex-col p-2 gap-2">
       {topSection}
-      {<CombatActions />}
+      {<CombatActions characterSheet={characterSheet} />}
       {<CombatWeapons />}
       {<CombatAbilities />}
       {<CombatBonusActions />}

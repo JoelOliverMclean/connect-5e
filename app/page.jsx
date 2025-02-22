@@ -1,13 +1,11 @@
-import { auth } from "@/auth";
+"use client";
 import UserAvatar from "@/components/userAvatar/UserAvatar";
 import Image from "next/image";
 import Link from "next/link";
 
-export default async function Home() {
-  const session = await auth();
-
+export default function Home() {
   return (
-    <div className="h-[100%] overflow-auto">
+    <div className={`min-h-[100vh]] overflow-auto`}>
       {/* {session?.user ? (
         <div>Logged in as {session.user.name}</div>
       ) : (

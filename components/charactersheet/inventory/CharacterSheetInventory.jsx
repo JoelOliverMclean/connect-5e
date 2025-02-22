@@ -1,6 +1,6 @@
 import React from "react";
 
-function CharacterSheetInventory() {
+function CharacterSheetInventory({ characterSheet }) {
   return <div>CharacterSheetInventory</div>;
 }
 
