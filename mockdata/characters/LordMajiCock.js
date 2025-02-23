@@ -1,6 +1,9 @@
+import { getModifierIntFromStat } from "@/utils/CharacterSheetUtils";
 import fighter from "../classes/fighter";
+import wizard from "../classes/wizard";
 import armor from "../items/armor";
 import weapons from "../items/weapons";
+import magicItems from "../items/magicItems";
 
 const characterSheet = {
   conditions: [
@@ -20,7 +23,7 @@ const characterSheet = {
       name: "Shield",
       modifier: 2,
     },
-    armor: [armor.chainMail],
+    armor: [armor.elvenChainShirt],
     other: [
       // e.g.
       // {
@@ -52,8 +55,8 @@ const characterSheet = {
     }, []);
   },
   health: {
-    max: 28,
-    current: 28,
+    max: 17,
+    current: 17,
     temporary: 0,
     deathSaves: {
       successes: 0,
@@ -61,21 +64,21 @@ const characterSheet = {
     },
   },
   abilityScores: {
-    strength: 16,
-    dexterity: 16,
+    strength: 11,
+    dexterity: 14,
     constitution: 13,
-    intelligence: 13,
-    wisdom: 9,
-    charisma: 15,
+    intelligence: 16,
+    wisdom: 15,
+    charisma: 8,
   },
   proficiency: {
     bonus: 2,
     armor: [],
     weapons: [],
     tools: [],
-    saves: ["strength", "constitution"],
+    saves: ["intelligence", "wisdom"],
   },
-  languages: [],
+  languages: ["Common", "Gnomish", "Goblin", "Elvish"],
   features() {
     return this.class.reduce((arr, curr) => {
       if (!curr) return arr;
@@ -98,7 +101,7 @@ const characterSheet = {
   },
   race: "Human",
   profile: {
-    name: "Flick McPlumbs",
+    name: "Lord Maji Cock",
     gender: "Male",
     image: {
       url: null,
@@ -108,29 +111,39 @@ const characterSheet = {
     alignment: "Chaotic Good",
     player: {
       email: "",
-      name: "Cameron",
+      name: "Ben",
     },
     background: null,
     deity: null,
     patron: null,
   },
-  spellcasting: null,
-  // e.g.
-  // {
-  //   ability: "intelligence"
-  //   spellSaveDC: 13
-  //   spellAttackBonus: 5
-  //   knownSpells: [],
-  //   preparedSpells: [],
-  //   spellSlots: {
-  //     level1: { max: 4, current: 4 },
-  //     level2: { max: 2, current: 2 },
-  //   },
-  // },
+  getSpellSaveDC() {
+    return (
+      8 +
+      this.proficiency.bonus +
+      getModifierIntFromStat(this.abilityScores[this.spellcasting.ability])
+    );
+  },
+  getSpellAttackBonus() {
+    return (
+      this.proficiency.bonus +
+      getModifierIntFromStat(this.abilityScores[this.spellcasting.ability])
+    );
+  },
+  spellcasting: {
+    ability: "intelligence",
+    spellAttackBonus: 5,
+    knownSpells: [],
+    preparedSpells: [],
+    spellSlots: {
+      level1: { max: 4, current: 4 },
+      level2: { max: 2, current: 2 },
+    },
+  },
   class: [
     {
-      base: fighter,
-      subClass: fighter.subClasses.echoKnight,
+      base: wizard,
+      subClass: wizard.subClasses.necromancy,
       level: 3,
       getHitDice() {
         return Array.from({ length: this.level }, (_, index) => {
@@ -291,20 +304,20 @@ const characterSheet = {
   inventory: {
     personal: [
       {
-        item: weapons.swordOfOrcStrength,
+        item: weapons.quarterstaff,
         category: "weapon",
         quantity: 1,
         equipped: true,
       },
       {
-        item: weapons.crossbowLight,
-        category: "weapon",
+        item: magicItems.ringOfMindShielding,
+        category: "magic item",
         quantity: 1,
         equipped: true,
       },
     ],
     stored: [],
-    attunedMagicItems: [],
+    attunedMagicItems: [magicItems.ringOfMindShielding],
   },
   resources: {
     kiPoints: { max: 0, current: 0 },

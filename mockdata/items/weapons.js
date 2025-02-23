@@ -1,6 +1,7 @@
 const swordOfOrcStrength = {
   name: "Sword of Orc Strength",
-  description: "",
+  description:
+    "You have a +1 bonus to attack and damage rolls made with this sword due to the power of orc strength imbued within it.",
   range: "5ft",
   hitBonus: 6,
   damage: [{ dice: "1d8", bonus: 4, type: "slashing" }],
@@ -15,4 +16,13 @@ const crossbowLight = {
   properties: ["ammunition", "loading", "two-handed"],
 };
 
-export default { swordOfOrcStrength, crossbowLight };
+const quarterstaff = {
+  name: "Quarterstaff",
+  description: "",
+  range: "5ft",
+  hitBonus: 2,
+  damage: [{ dice: "1d6", bonus: 0, type: "bludgeoning" }],
+  properties: ["versatile"],
+};
+
+export default { swordOfOrcStrength, crossbowLight, quarterstaff };

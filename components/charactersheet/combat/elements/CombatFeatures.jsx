@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 
-function CombatFeatures({ features, type }) {
+function CombatFeatures({ features, type, theme }) {
   const [expandedFeature, setExpandedFeature] = useState({});
   const [isFeatureCollapsed, setIsFeatureCollapsed] = useState(
     features.reduce((acc, feature) => {
@@ -39,7 +39,10 @@ function CombatFeatures({ features, type }) {
       {features.map((feature) => (
         <div
           key={feature.name}
-          className="p-2 border border-red-600 bg-red-950 rounded-lg flex flex-col gap-1"
+          className={`p-2 border ${theme.border} ${theme.bg} ${theme.shadow} shadow-md rounded-lg flex flex-col gap-1`}
+          onClick={() => {
+            togglefeatureDescriptionWrapping(feature.name);
+          }}
         >
           <div className="flex justify-between items-start">
             <div>
@@ -89,13 +92,12 @@ function CombatFeatures({ features, type }) {
             </p>
           </div>
           {feature.usage && (
-            <p className="text-xs">Uses refresh on {feature.usage.refresh}</p>
+            <p className="text-xs text-center font-semibold">
+              Uses refresh on {feature.usage.refresh}
+            </p>
           )}
           {feature.description.length > 50 && (
-            <div
-              className="flex justify-center cursor-pointer"
-              onClick={() => togglefeatureDescriptionWrapping(feature.name)}
-            >
+            <div className="flex justify-center cursor-pointer">
               <Image
                 src="/icons/down_arrow_icon.png"
                 width={24}

@@ -1,18 +1,19 @@
 import Image from "next/image";
 import React from "react";
-import { getModifier, getModifierFromStat } from "@/utils/CharacterSheetUtils";
-import CombatAbilities from "./elements/CombatAbilities";
+import { getModifierFromStat } from "@/utils/CharacterSheetUtils";
 import CombatActions from "./elements/CombatActions";
-import CombatBonusActions from "./elements/CombatBonusActions";
-import CombatReactions from "./elements/CombatReactions";
+import CombatWeapons from "./elements/CombatWeapons";
+import CombatFeatures from "./elements/CombatFeatures";
 
-function CharacterSheetCombat({ characterSheet }) {
+function CharacterSheetCombat({ characterSheet, theme }) {
   const showACHelp = () => {};
 
   const topSection = (
     <div className="">
       <div className="grid grid-cols-3 justify-evenly gap-2">
-        <div className="p-1 border rounded-lg border-red-600 bg-red-950 flex flex-col shadow-md shadow-red-950">
+        <div
+          className={`p-1 border rounded-lg ${theme.border} ${theme.bg} flex flex-col shadow-md ${theme.shadow}`}
+        >
           <div className="relative flex-1 flex items-center justify-center">
             <div className="text-center text-3xl pt-1">
               {characterSheet.armorClass.total()}
@@ -27,7 +28,9 @@ function CharacterSheetCombat({ characterSheet }) {
           </div>
           <h3 className="text-center text-xs px-1">Armor Class</h3>
         </div>
-        <div className="p-1 border rounded-lg border-red-600 bg-red-950 shadow-md shadow-red-950">
+        <div
+          className={`p-1 border rounded-lg ${theme.border} ${theme.bg} shadow-md ${theme.shadow}`}
+        >
           <div className="relative">
             <p className="text-center text-3xl pt-1">
               {characterSheet.attacksPerAction}
@@ -36,7 +39,9 @@ function CharacterSheetCombat({ characterSheet }) {
           <h3 className="text-center text-xs px-1">Attacks</h3>
           <h3 className="text-center text-xs px-1">per Action</h3>
         </div>
-        <div className="p-1 border rounded-lg border-red-600 bg-red-950 flex flex-col shadow-md shadow-red-950">
+        <div
+          className={`p-1 border rounded-lg ${theme.border} ${theme.bg} flex flex-col shadow-md ${theme.shadow}`}
+        >
           <div className="flex-1 flex justify-center items-center text-center text-3xl">
             {getModifierFromStat(characterSheet.abilityScores.dexterity)}
           </div>
@@ -46,13 +51,50 @@ function CharacterSheetCombat({ characterSheet }) {
     </div>
   );
 
+  const actions = characterSheet.features().filter((p) => p.type === "action");
+
+  const bonusActions = characterSheet
+    .features()
+    .filter((p) => p.type === "bonus action");
+
+  const reactions = characterSheet
+    .features()
+    .filter((p) => p.type === "reaction");
+
+  const weapons = characterSheet.inventory.personal.filter(
+    (item) => item.category === "weapon" && item.equipped
+  );
+
   return (
-    <div className="flex flex-col p-2 gap-2">
+    <div className="flex flex-col p-2 gap-3">
       {topSection}
-      {<CombatActions characterSheet={characterSheet} />}
-      {<CombatAbilities characterSheet={characterSheet} />}
-      {<CombatBonusActions characterSheet={characterSheet} />}
-      {<CombatReactions characterSheet={characterSheet} />}
+      {weapons.length > 0 && (
+        <div className="flex flex-col gap-2">
+          <CombatWeapons weapons={weapons} theme={theme} />
+        </div>
+      )}
+      {actions.length > 0 && (
+        <div className="flex flex-col gap-2">
+          <CombatFeatures features={actions} theme={theme} type="Abilities" />
+        </div>
+      )}
+      {bonusActions.length > 0 && (
+        <div className="flex flex-col gap-2">
+          <CombatFeatures
+            features={bonusActions}
+            theme={theme}
+            type="Bonus Actions"
+          />
+        </div>
+      )}
+      {reactions.length > 0 && (
+        <div className="flex flex-col gap-2">
+          <CombatFeatures features={reactions} theme={theme} type="Reactions" />
+        </div>
+      )}
+      <div className="flex flex-col gap-2 pb-2">
+        <CombatActions theme={theme} />
+      </div>
     </div>
   );
 }

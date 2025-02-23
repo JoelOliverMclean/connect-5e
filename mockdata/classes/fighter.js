@@ -1,5 +1,6 @@
 const fighter = {
   name: "Fighter",
+  hitDice: "d10",
   subClasses: {
     echoKnight: {
       name: "Echo Knight",
