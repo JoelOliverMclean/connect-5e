@@ -6,7 +6,7 @@ import CharacterSheetCombat from "./combat/CharacterSheetCombat";
 import CharacterSheetMagic from "./magic/CharacterSheetMagic";
 import CharacterSheetInventory from "./inventory/CharacterSheetInventory";
 import CharacterSheetProfile from "./profile/CharacterSheetProfile";
-import characterSheet from "@/mockdata/characters/FlickMcPlumbs";
+import characterSheet from "@/mockdata/characters/LordMajiCock";
 
 const styles = {
   bottomBarButton:
