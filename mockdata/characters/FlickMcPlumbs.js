@@ -169,8 +169,8 @@ const characterSheet = {
     {
       name: "Animal Handling",
       mod: -1,
-      proficient: true,
-      expert: true,
+      proficient: false,
+      expert: false,
       ability: "wisdom",
     },
     {
