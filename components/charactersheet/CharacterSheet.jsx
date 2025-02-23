@@ -234,7 +234,7 @@ function CharacterSheet() {
       <header
         className={`sticky top-0 z-10 ${theme.bg} border-b-2 ${theme.border}`}
       >
-        <div className="py-1">{header}</div>
+        <div className="py-1 md:p-2">{header}</div>
         <div className="h-[48px] flex justify-evenly py-2 flex-grow-0 flex-shrink-0 flex-auto sticky top-0">
           {tab("stats_chart_sharp_icon_48", "stats")}
           {tab("sword_fill_icon_48", "combat")}
