@@ -1,6 +1,7 @@
 import { getModifier, getModifierFromStat } from "@/utils/CharacterSheetUtils";
 import Image from "next/image";
 import React from "react";
+import CharacterSheetSpells from "./spells/CharacterSheetSpells";
 
 function CharacterSheetMagic({ characterSheet, theme }) {
   const topSection = (
@@ -51,7 +52,16 @@ function CharacterSheetMagic({ characterSheet, theme }) {
     </div>
   );
 
-  return <div className="flex flex-col p-2 gap-3">{topSection}</div>;
+  return (
+    <div className="flex flex-col p-2 gap-3">
+      {topSection}
+      <CharacterSheetSpells
+        spells={characterSheet.spellcasting.spells}
+        spellSlots={characterSheet.spellcasting.spellSlots}
+        theme={theme}
+      />
+    </div>
+  );
 }
 
 export default CharacterSheetMagic;

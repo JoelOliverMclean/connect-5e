@@ -8,7 +8,7 @@ function CombatActions({ theme }) {
   const actionInCombatPopup = (
     <Popup onDismiss={(e) => setSelectedActionInCombat(null)}>
       <div
-        className={`${theme.bg} border-2 ${theme.border} p-2 rounded-lg min-w-[85vw] flex flex-col items-center`}
+        className={`${theme.bg} border-2 ${theme.border} p-2 rounded-lg min-w-[85vw] md:min-w-[30vw] md:max-w-[60vw] lg:max-w-[40vw] flex flex-col items-center`}
       >
         <h2 className="text-xl font-bold">{selectedActionInCombat?.name}</h2>
         <p className="text-sm">{selectedActionInCombat?.description}</p>

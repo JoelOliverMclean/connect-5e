@@ -25,7 +25,7 @@ export default function RootLayout({ children }) {
               <Toolbar />
             </header>
 
-            <main className="container flex-grow mx-auto overflow-y-auto bg-gray-950">
+            <main className="container flex-grow mx-auto overflow-y-auto bg-gray-900">
               {children}
             </main>
           </div>

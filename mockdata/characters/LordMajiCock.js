@@ -4,6 +4,9 @@ import wizard from "../classes/wizard";
 import armor from "../items/armor";
 import weapons from "../items/weapons";
 import magicItems from "../items/magicItems";
+import cantrips from "../spells/cantrips";
+import level1Spells from "../spells/level1Spells";
+import level2Spells from "../spells/level2Spells";
 
 const characterSheet = {
   conditions: [
@@ -132,9 +135,21 @@ const characterSheet = {
   },
   spellcasting: {
     ability: "intelligence",
-    spellAttackBonus: 5,
-    knownSpells: [],
-    preparedSpells: [],
+    spells: [
+      { spell: cantrips.acidSplash, prepared: false },
+      { spell: cantrips.light, prepared: false },
+      { spell: cantrips.thunderclap, prepared: false },
+      { spell: level1Spells.alarm, prepared: false },
+      { spell: level1Spells.burningHands, prepared: false },
+      { spell: level1Spells.catapult, prepared: false },
+      { spell: level1Spells.disguiseSelf, prepared: false },
+      { spell: level1Spells.falseLife, prepared: false },
+      { spell: level1Spells.fogCloud, prepared: false },
+      { spell: level1Spells.magicMissile, prepared: false },
+      { spell: level1Spells.tensersFloatingDisk, prepared: false },
+      { spell: level2Spells.phantasmalForce, prepared: false },
+      { spell: level2Spells.shadowBlade, prepared: false },
+    ],
     spellSlots: {
       level1: { max: 4, current: 4 },
       level2: { max: 2, current: 2 },
