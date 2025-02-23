@@ -5,19 +5,20 @@ import { getModifier } from "@/utils/CharacterSheetUtils";
 
 const styles = {
   statWrapper:
-    "text-center rounded-lg p-1 border border-1 border-yellow-700 bg-red-950 flex flex-col shadow-md shadow-yellow-950",
+    "text-center rounded-lg p-1 border border-1 flex flex-col shadow-md",
   savesWrapper:
-    "text-center rounded-lg p-1 border border-1 border-white bg-yellow-800 flex flex-col shadow shadow-gray-500",
-  passiveWrapper:
-    "text-center rounded-lg p-1 border border-1 border-red-800 bg-slate-800 shadow-md shadow-red-950",
+    "text-center rounded-lg p-1 border border-1 flex flex-col shadow-md",
+  passiveWrapper: "text-center rounded-lg p-1 border border-1 shadow-md",
   statLabel: "text-xs truncate",
   statPrimary: "text-3xl font-bold",
   statSecondary: "font-semibold flex-1",
 };
 
-function CharacterSheetStats({ characterSheet }) {
+function CharacterSheetStats({ characterSheet, theme }) {
   const statBlock = (label, stat) => (
-    <div className={styles.statWrapper}>
+    <div
+      className={`${styles.statWrapper} ${theme.bg} ${theme.border} ${theme.shadow}`}
+    >
       <h3 className={styles.statLabel}>{label}</h3>
       <p className={styles.statPrimary}>{getModifier(stat)}</p>
       <div className="flex items-end">
@@ -65,7 +66,9 @@ function CharacterSheetStats({ characterSheet }) {
   }
 
   const savesBlock = (label, mod, saveProficiencies) => (
-    <div className={styles.savesWrapper}>
+    <div
+      className={`${styles.savesWrapper} ${theme.bg} ${theme.border} ${theme.shadow}`}
+    >
       <h3 className={styles.statLabel}>{label}</h3>
       <div className="flex items-end">
         <p className="flex-1"></p>
@@ -138,7 +141,9 @@ function CharacterSheetStats({ characterSheet }) {
   );
 
   const passiveBlock = (name, value) => (
-    <div className={styles.passiveWrapper}>
+    <div
+      className={`${styles.passiveWrapper} ${theme.bg} ${theme.border} ${theme.shadow}`}
+    >
       <h3 className={styles.statLabel}>{name}</h3>
       <p className={styles.statPrimary}>{value}</p>
     </div>
@@ -170,17 +175,22 @@ function CharacterSheetStats({ characterSheet }) {
     </div>
   );
 
+  const proficiencyStar = <span className="text-yellow-500 font-bold">*</span>;
+
+  const expertiseStars = <span className="text-yellow-500 font-bold">**</span>;
+
   const skillCell = (skill) => (
     <div
-      className={`flex items-end shadow rounded-md border px-1 ${
-        skill.proficient
-          ? "border-yellow-400 shadow-yellow-600"
-          : "border-red-950 shadow-red-800"
-      } ${skill.expert ? "bg-yellow-800" : "bg-red-950"}`}
+      className={`flex justify-between gap-1 items-end shadow rounded-md border px-1 ${theme.border} ${theme.shadow} ${theme.bg}`}
     >
-      <div className="flex-1 text-sm">
-        <p>{skill.name}</p>
-      </div>
+      <p className="flex-1 truncate text-sm">{skill.name}</p>
+      <p>
+        {skill.expert
+          ? expertiseStars
+          : skill.proficient
+          ? proficiencyStar
+          : ""}
+      </p>
       <div className="font-bold">{getModifier(skill.mod)}</div>
     </div>
   );
@@ -207,21 +217,15 @@ function CharacterSheetStats({ characterSheet }) {
           ))}
         </div>
         <div className="flex-1 text-end text-xs flex gap-3">
-          <div className="flex gap-1">
-            <div className="border border-yellow-500 bg-red-950 px-2 font-bold rounded-md"></div>
-            = Proficiency
-          </div>
-          <div className="flex gap-1">
-            <div className="border border-yellow-500 bg-yellow-800 px-2 font-bold rounded-md"></div>
-            = Expertise
-          </div>
+          <div className="flex gap-1">{proficiencyStar}= Proficiency</div>
+          <div className="flex gap-1">{expertiseStars}= Expertise</div>
         </div>
       </div>
     </div>
   );
 
   return (
-    <div className="flex flex-col gap-2 p-2">
+    <div className="flex flex-col gap-3 p-2">
       {mainStatBlock}
       {saveStats}
       {passiveStats}

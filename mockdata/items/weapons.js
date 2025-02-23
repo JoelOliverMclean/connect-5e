@@ -1,6 +1,7 @@
 const swordOfOrcStrength = {
   name: "Sword of Orc Strength",
-  description: "",
+  description:
+    "You have a +1 bonus to attack and damage rolls made with this sword due to the power of orc strength imbued within it.",
   range: "5ft",
   hitBonus: 6,
   damage: [{ dice: "1d8", bonus: 4, type: "slashing" }],

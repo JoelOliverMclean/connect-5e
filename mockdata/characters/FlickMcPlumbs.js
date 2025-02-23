@@ -48,6 +48,13 @@ const characterSheet = {
     climb: 0,
     swim: 0,
   },
+  getAllHitDice() {
+    return this.class.reduce((hitDieArr, curClass) => {
+      if (!curClass) return hitDieArr;
+
+      return hitDieArr.concat(curClass.getHitDice());
+    }, []);
+  },
   health: {
     max: 128,
     current: 128,
@@ -134,6 +141,11 @@ const characterSheet = {
       base: fighter,
       subClass: fighter.subClasses.echoKnight,
       level: 3,
+      getHitDice() {
+        return Array.from({ length: this.level }, (_, index) => {
+          return this.base.hitDice;
+        });
+      },
     },
   ],
   senses: {
@@ -166,8 +178,8 @@ const characterSheet = {
     {
       name: "Animal Handling",
       mod: -1,
-      proficient: false,
-      expert: false,
+      proficient: true,
+      expert: true,
       ability: "wisdom",
     },
     {

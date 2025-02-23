@@ -13,7 +13,46 @@ const styles = {
     "w-[48px] flex justify-center items-center rounded-full duration-300",
 };
 
-function CharacterSheet({ children }) {
+const themes = {
+  green: {
+    bg: "bg-green-950",
+    highlight: "bg-green-700",
+    border: "border-green-700",
+    text: "text-[var(--foreground)]",
+    shadow: "shadow-green-900",
+  },
+  red: {
+    bg: "bg-red-950",
+    highlight: "bg-red-700",
+    border: "border-red-700",
+    text: "text-[var(--foreground)]",
+    shadow: "shadow-red-900",
+  },
+  blue: {
+    bg: "bg-blue-950",
+    highlight: "bg-blue-700",
+    border: "border-blue-700",
+    text: "text-[var(--foreground)]",
+    shadow: "shadow-blue-900",
+  },
+  purple: {
+    bg: "bg-purple-950",
+    highlight: "bg-purple-700",
+    border: "border-purple-700",
+    text: "text-[var(--foreground)]",
+    shadow: "shadow-purple-900",
+  },
+  yellow: {
+    bg: "bg-yellow-700",
+    highlight: "bg-yellow-500",
+    border: "border-yellow-500",
+    text: "text-[var(--background)]",
+    shadow: "shadow-yellow-900",
+  },
+};
+
+function CharacterSheet() {
+  const [theme, setTheme] = useState(themes.green);
   const divRef = useRef(null);
 
   const scrollToTop = () => {
@@ -32,9 +71,9 @@ function CharacterSheet({ children }) {
 
   const tab = (icon, name) => (
     <div
-      className={
-        styles.bottomBarButton + (selected === name ? " bg-red-700" : "")
-      }
+      className={`${styles.bottomBarButton} ${
+        selected === name ? theme.highlight : ""
+      }`}
       onClick={() => changeTab(name)}
     >
       <Image
@@ -74,8 +113,18 @@ function CharacterSheet({ children }) {
   const hitDie = (
     <div className="flex-1 flex flex-col justify-end items-center gap-1">
       <div className="items-end justify-center gap-1 text-center flex flex-wrap py-1 border rounded-xl bg-yellow-800 px-[4px]">
-        {Array.from(
-          { length: characterSheet.health.hitDice.max },
+        {characterSheet.getAllHitDice().map((dice, index) => (
+          <div key={index} className={`rounded-full p-[2px] bg-black`}>
+            <Image
+              src={`/icons/dice/dice-${dice}-white.png`}
+              width={12}
+              height={12}
+              alt={`${dice} hit die`}
+            />
+          </div>
+        ))}
+        {/* {Array.from(
+          { length: characterSheet.getAllHitDice().length },
           (_, index) => (
             <div key={index} className={`rounded-full p-[2px] bg-black`}>
               <Image
@@ -88,14 +137,9 @@ function CharacterSheet({ children }) {
               />
             </div>
           )
-        )}
+        )} */}
       </div>
-      <p className="text-xs text-center">
-        Hit Die{" "}
-        <span className="text-yellow-500">
-          ({characterSheet.health.hitDice.dice})
-        </span>
-      </p>
+      <p className="text-xs text-center">Hit Dice</p>
     </div>
   );
 
@@ -118,7 +162,9 @@ function CharacterSheet({ children }) {
         </div>
         <div className="flex flex-col items-center gap-1">
           <p className="text-xs">Failures</p>
-          <div className="w-[64px] h-[100%] py-1 flex justify-evenly items-center rounded-lg border border-[var(--foreground)] bg-red-800">
+          <div
+            className={`w-[64px] h-[100%] py-1 flex justify-evenly items-center rounded-lg border border-[var(--foreground)] bg-red-800`}
+          >
             {Array.from({ length: 3 }, (_, index) => (
               <div
                 key={index}
@@ -149,7 +195,9 @@ function CharacterSheet({ children }) {
     <div className="px-2 flex flex-col gap-2">
       <div className="flex gap-2">
         <div className="flex-1">
-          <div className="text-lg font-bold">{characterSheet.profile.name}</div>
+          <div className={`text-lg font-bold`}>
+            {characterSheet.profile.name}
+          </div>
           <div className="text-xs">
             {characterSheet.race} | {getClassesString(characterSheet.class)}
           </div>
@@ -180,9 +228,11 @@ function CharacterSheet({ children }) {
   );
 
   return (
-    <div className="flex flex-col h-full">
+    <div className={`flex flex-col h-full ${theme.text}`}>
       {/* Inner Fixed Header */}
-      <header className="sticky top-0 z-10 bg-red-950 border-b-2 border-red-700">
+      <header
+        className={`sticky top-0 z-10 ${theme.bg} border-b-2 ${theme.border}`}
+      >
         <div className="py-1">{header}</div>
         <div className="h-[48px] flex justify-evenly py-2 flex-grow-0 flex-shrink-0 flex-auto sticky top-0">
           {tab("stats_chart_sharp_icon_48", "stats")}
@@ -201,35 +251,50 @@ function CharacterSheet({ children }) {
               "fadeInOut " + (selected === "stats" ? "visible" : "hide")
             }
           >
-            <CharacterSheetStats characterSheet={characterSheet} />
+            <CharacterSheetStats
+              characterSheet={characterSheet}
+              theme={theme}
+            />
           </div>
           <div
             className={
               "fadeInOut " + (selected === "combat" ? "visible" : "hide")
             }
           >
-            <CharacterSheetCombat characterSheet={characterSheet} />
+            <CharacterSheetCombat
+              characterSheet={characterSheet}
+              theme={theme}
+            />
           </div>
           <div
             className={
               "fadeInOut " + (selected === "magic" ? "visible" : "hide")
             }
           >
-            <CharacterSheetMagic characterSheet={characterSheet} />
+            <CharacterSheetMagic
+              characterSheet={characterSheet}
+              theme={theme}
+            />
           </div>
           <div
             className={
               "fadeInOut " + (selected === "inventory" ? "visible" : "hide")
             }
           >
-            <CharacterSheetInventory characterSheet={characterSheet} />
+            <CharacterSheetInventory
+              characterSheet={characterSheet}
+              theme={theme}
+            />
           </div>
           <div
             className={
               "fadeInOut " + (selected === "profile" ? "visible" : "hide")
             }
           >
-            <CharacterSheetProfile characterSheet={characterSheet} />
+            <CharacterSheetProfile
+              characterSheet={characterSheet}
+              theme={theme}
+            />
           </div>
         </div>
       </div>
