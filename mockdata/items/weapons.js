@@ -16,4 +16,13 @@ const crossbowLight = {
   properties: ["ammunition", "loading", "two-handed"],
 };
 
+const quarterstaff = {
+  name: "Quarterstaff",
+  description: "",
+  range: "5ft",
+  hitBonus: 2,
+  damage: [{ dice: "1d6", bonus: 0, type: "bludgeoning" }],
+  properties: ["versatile"],
+};
+
 export default { swordOfOrcStrength, crossbowLight };

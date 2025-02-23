@@ -6,7 +6,7 @@ import CharacterSheetCombat from "./combat/CharacterSheetCombat";
 import CharacterSheetMagic from "./magic/CharacterSheetMagic";
 import CharacterSheetInventory from "./inventory/CharacterSheetInventory";
 import CharacterSheetProfile from "./profile/CharacterSheetProfile";
-import characterSheet from "@/mockdata/characters/FlickMcPlumbs";
+import characterSheet from "@/mockdata/characters/LordMajiCock";
 
 const styles = {
   bottomBarButton:
@@ -52,7 +52,7 @@ const themes = {
 };
 
 function CharacterSheet() {
-  const [theme, setTheme] = useState(themes.green);
+  const [theme, setTheme] = useState(themes.red);
   const divRef = useRef(null);
 
   const scrollToTop = () => {
@@ -184,8 +184,8 @@ function CharacterSheet() {
   const getClassesString = (classes) => {
     return classes
       .map((c) =>
-        `${c.base.name}${c.subClass ? ` (${c.subClass.name})` : ""} ${
-          c.level
+        `Lvl ${c.level} ${c.base.name}${
+          c.subClass ? ` (${c.subClass.name})` : ""
         }`.trim()
       )
       .join(" | ");

@@ -37,7 +37,7 @@ function CombatWeapons({ characterSheet, theme }) {
               <h3 className="font-bold">{weapon.item.name}</h3>
               <div className="text-xs flex justify-between">
                 <div className="flex gap-2">
-                  <div className="opacity-70">Hit/DC:</div>
+                  <div className="opacity-70">Hit Bonus:</div>
                   <div>{getModifier(weapon.item.hitBonus)}</div>
                 </div>
                 <div className="flex gap-2">

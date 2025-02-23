@@ -3,8 +3,11 @@ function getModifier(mod) {
 }
 
 function getModifierFromStat(stat) {
-  var mod = Math.floor(parseFloat((stat - 10) / 2));
-  return getModifier(mod);
+  return getModifier(getModifierIntFromStat(stat));
 }
 
-export { getModifier, getModifierFromStat };
+function getModifierIntFromStat(stat) {
+  return Math.floor(parseFloat((stat - 10) / 2));
+}
+
+export { getModifier, getModifierFromStat, getModifierIntFromStat };
