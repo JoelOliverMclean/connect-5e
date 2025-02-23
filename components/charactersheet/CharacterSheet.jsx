@@ -10,7 +10,7 @@ import characterSheet from "@/mockdata/characters/FlickMcPlumbs";
 
 const styles = {
   bottomBarButton:
-    "w-[48px] flex justify-center items-center rounded-full duration-300",
+    "flex justify-center items-center rounded-full duration-300 px-2 gap-2",
 };
 
 const themes = {
@@ -82,6 +82,7 @@ function CharacterSheet() {
         height={24}
         alt={name}
       />
+      <p className="font-semibold hidden md:block">{name}</p>
     </div>
   );
 
@@ -111,7 +112,7 @@ function CharacterSheet() {
   );
 
   const hitDie = (
-    <div className="flex-1 flex flex-col justify-end items-center gap-1">
+    <div className="flex flex-col justify-end items-center gap-1">
       <div className="items-end justify-center gap-1 text-center flex flex-wrap py-1 border rounded-xl bg-yellow-800 px-[4px]">
         {characterSheet.getAllHitDice().map((dice, index) => (
           <div key={index} className={`rounded-full p-[2px] bg-black`}>
@@ -144,7 +145,7 @@ function CharacterSheet() {
   );
 
   const deathSaves = (
-    <div className="flex-1 flex flex-col gap-1">
+    <div className="flex flex-col gap-1">
       <div className="flex-1 justify-center flex gap-2">
         <div className="flex flex-col items-center gap-1">
           <p className="text-xs">Successes</p>
@@ -192,7 +193,7 @@ function CharacterSheet() {
   };
 
   const header = (
-    <div className="px-2 flex flex-col gap-2">
+    <div className="px-2 grid grid-cols-1 md:grid-cols-2 gap-2">
       <div className="flex gap-2">
         <div className="flex-1">
           <div className={`text-lg font-bold`}>
@@ -219,7 +220,7 @@ function CharacterSheet() {
           <p className="text-xs text-center">Condition</p>
         </div>
       </div>
-      <div className="flex items-end justify-center gap-2">
+      <div className="flex items-end justify-between md:justify-around xl:justify-end gap-2">
         {hpCell}
         {hitDie}
         {deathSaves}
