@@ -3,6 +3,7 @@ import fighter from "../classes/fighter";
 import wizard from "../classes/wizard";
 import armor from "../items/armor";
 import weapons from "../items/weapons";
+import magicItems from "../items/magicItems";
 
 const characterSheet = {
   conditions: [
@@ -303,20 +304,20 @@ const characterSheet = {
   inventory: {
     personal: [
       {
-        item: weapons.swordOfOrcStrength,
+        item: weapons.quarterstaff,
         category: "weapon",
         quantity: 1,
         equipped: true,
       },
       {
-        item: weapons.crossbowLight,
-        category: "weapon",
+        item: magicItems.ringOfMindShielding,
+        category: "magic item",
         quantity: 1,
         equipped: true,
       },
     ],
     stored: [],
-    attunedMagicItems: [],
+    attunedMagicItems: [magicItems.ringOfMindShielding],
   },
   resources: {
     kiPoints: { max: 0, current: 0 },

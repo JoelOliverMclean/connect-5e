@@ -6,7 +6,7 @@ import CharacterSheetCombat from "./combat/CharacterSheetCombat";
 import CharacterSheetMagic from "./magic/CharacterSheetMagic";
 import CharacterSheetInventory from "./inventory/CharacterSheetInventory";
 import CharacterSheetProfile from "./profile/CharacterSheetProfile";
-import characterSheet from "@/mockdata/characters/LordMajiCock";
+import characterSheet from "@/mockdata/characters/FlickMcPlumbs";
 
 const styles = {
   bottomBarButton:
@@ -237,7 +237,8 @@ function CharacterSheet() {
         <div className="h-[48px] flex justify-evenly py-2 flex-grow-0 flex-shrink-0 flex-auto sticky top-0">
           {tab("stats_chart_sharp_icon_48", "stats")}
           {tab("sword_fill_icon_48", "combat")}
-          {tab("magic_wand_fill_icon_48", "magic")}
+          {characterSheet.spellcasting &&
+            tab("magic_wand_fill_icon_48", "magic")}
           {tab("treasure_chest_icon_48", "inventory")}
           {tab("bust_icon_48", "profile")}
         </div>
@@ -266,16 +267,18 @@ function CharacterSheet() {
               theme={theme}
             />
           </div>
-          <div
-            className={
-              "fadeInOut " + (selected === "magic" ? "visible" : "hide")
-            }
-          >
-            <CharacterSheetMagic
-              characterSheet={characterSheet}
-              theme={theme}
-            />
-          </div>
+          {characterSheet.spellcasting && (
+            <div
+              className={
+                "fadeInOut " + (selected === "magic" ? "visible" : "hide")
+              }
+            >
+              <CharacterSheetMagic
+                characterSheet={characterSheet}
+                theme={theme}
+              />
+            </div>
+          )}
           <div
             className={
               "fadeInOut " + (selected === "inventory" ? "visible" : "hide")

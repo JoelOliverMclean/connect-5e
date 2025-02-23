@@ -1,11 +1,9 @@
 import Image from "next/image";
 import React from "react";
-import { getModifier, getModifierFromStat } from "@/utils/CharacterSheetUtils";
-import CombatAbilities from "./elements/CombatAbilities";
+import { getModifierFromStat } from "@/utils/CharacterSheetUtils";
 import CombatActions from "./elements/CombatActions";
-import CombatBonusActions from "./elements/CombatBonusActions";
-import CombatReactions from "./elements/CombatReactions";
 import CombatWeapons from "./elements/CombatWeapons";
+import CombatFeatures from "./elements/CombatFeatures";
 
 function CharacterSheetCombat({ characterSheet, theme }) {
   const showACHelp = () => {};
@@ -53,21 +51,47 @@ function CharacterSheetCombat({ characterSheet, theme }) {
     </div>
   );
 
+  const actions = characterSheet.features().filter((p) => p.type === "action");
+
+  const bonusActions = characterSheet
+    .features()
+    .filter((p) => p.type === "bonus action");
+
+  const reactions = characterSheet
+    .features()
+    .filter((p) => p.type === "reaction");
+
+  const weapons = characterSheet.inventory.personal.filter(
+    (item) => item.category === "weapon" && item.equipped
+  );
+
   return (
     <div className="flex flex-col p-2 gap-3">
       {topSection}
-      <div className="flex flex-col gap-2">
-        <CombatWeapons characterSheet={characterSheet} theme={theme} />
-      </div>
-      <div className="flex flex-col gap-2">
-        <CombatAbilities characterSheet={characterSheet} theme={theme} />
-      </div>
-      <div className="flex flex-col gap-2">
-        <CombatBonusActions characterSheet={characterSheet} theme={theme} />
-      </div>
-      <div className="flex flex-col gap-2">
-        <CombatReactions characterSheet={characterSheet} theme={theme} />
-      </div>
+      {weapons.length > 0 && (
+        <div className="flex flex-col gap-2">
+          <CombatWeapons weapons={weapons} theme={theme} />
+        </div>
+      )}
+      {actions.length > 0 && (
+        <div className="flex flex-col gap-2">
+          <CombatFeatures features={actions} theme={theme} type="Abilities" />
+        </div>
+      )}
+      {bonusActions.length > 0 && (
+        <div className="flex flex-col gap-2">
+          <CombatFeatures
+            features={bonusActions}
+            theme={theme}
+            type="Bonus Actions"
+          />
+        </div>
+      )}
+      {reactions.length > 0 && (
+        <div className="flex flex-col gap-2">
+          <CombatFeatures features={reactions} theme={theme} type="Reactions" />
+        </div>
+      )}
       <div className="flex flex-col gap-2 pb-2">
         <CombatActions theme={theme} />
       </div>

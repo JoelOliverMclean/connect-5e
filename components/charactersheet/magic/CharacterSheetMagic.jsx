@@ -13,7 +13,7 @@ function CharacterSheetMagic({ characterSheet, theme }) {
             <div className="text-center text-3xl pt-1">
               {getModifierFromStat(
                 characterSheet.abilityScores[
-                  characterSheet.spellcasting.ability
+                  characterSheet.spellcasting?.ability
                 ]
               )}
             </div>

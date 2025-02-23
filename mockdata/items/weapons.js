@@ -25,4 +25,4 @@ const quarterstaff = {
   properties: ["versatile"],
 };
 
-export default { swordOfOrcStrength, crossbowLight };
+export default { swordOfOrcStrength, crossbowLight, quarterstaff };

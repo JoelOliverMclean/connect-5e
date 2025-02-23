@@ -28,7 +28,7 @@ const wizard = {
     {
       name: "Arcane Recovery",
       level: 1,
-      type: "reaction",
+      type: "feature",
       description:
         "Once per day when you finish a short rest, you can choose expended spell slots up to 5th level to recover. The spell slots can have a combined level that is equal to or less than 2.",
       usage: {
