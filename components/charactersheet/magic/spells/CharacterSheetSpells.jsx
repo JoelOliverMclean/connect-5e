@@ -7,28 +7,51 @@ function CharacterSheetSpells({ spells, spellSlots, theme }) {
   const spellPopup = (
     <Popup onDismiss={(e) => setSelectedSpell(null)}>
       <div
-        className={`${theme.bg} border-2 ${theme.border} p-2 rounded-lg min-w-[85vw] md:min-w-[30vw] md:max-w-[60vw] lg:max-w-[40vw] flex flex-col gap-1`}
+        className={`${theme.bg} border-2 ${theme.border} p-2 rounded-lg min-w-[85vw] md:min-w-[30vw] md:max-w-[60vw] lg:max-w-[40vw] flex flex-col gap-2`}
       >
-        <h2 className="text-xl font-bold text-center">{selectedSpell?.name}</h2>
+        <h2 className="text-xl font-bold text-center">
+          {selectedSpell?.spell?.name}
+        </h2>
         <div className="text-xs flex flex-col gap-1">
           <p className="text-start flex gap-1">
             <span className="font-bold">Casting Time:</span>
-            {selectedSpell?.castingTime}
+            {selectedSpell?.spell?.castingTime}
           </p>
           <p className="text-start flex gap-1">
             <span className="font-bold">Range:</span>
-            {selectedSpell?.range}
+            {selectedSpell?.spell?.range}
           </p>
           <p className="text-start flex gap-1">
             <span className="font-bold">Components:</span>
-            {selectedSpell?.verbal && "V"} {selectedSpell?.somatic && "S"}{" "}
-            {selectedSpell?.material && "M"}
+            {selectedSpell?.spell?.verbal && "V"}{" "}
+            {selectedSpell?.spell?.somatic && "S"}{" "}
+            {selectedSpell?.spell?.material && "M"}
           </p>
           <p className="text-start flex gap-1">
             <span className="font-bold">Duration:</span>
-            {selectedSpell?.duration}
+            {selectedSpell?.spell?.duration}
           </p>
-          <p className="text-xs">{selectedSpell?.description}</p>
+          <p className="text-xs">{selectedSpell?.spell?.description}</p>
+        </div>
+        <div className="flex gap-2">
+          <div
+            className={`flex-1 text-center rounded-md border ${theme.highlight} shadow-md shadow-gray-900 p-1 font-bold hover:${theme.bg}`}
+            onClick={() => {
+              togglePrepared(selectedSpell);
+              setSelectedSpell(null);
+            }}
+          >
+            <p>{selectedSpell?.prepared ? "Unprepare" : "Prepare"}</p>
+          </div>
+          <div
+            className={`flex-1 text-center rounded-md border ${theme.highlight} shadow-md shadow-gray-900 p-1 font-bold hover:${theme.bg}`}
+            onClick={() => {
+              cast(selectedSpell);
+              setSelectedSpell(null);
+            }}
+          >
+            <p>Cast</p>
+          </div>
         </div>
       </div>
     </Popup>
@@ -38,20 +61,20 @@ function CharacterSheetSpells({ spells, spellSlots, theme }) {
   const level1Spells = spells.filter((s) => s.spell.level === 1);
   const level2Spells = spells.filter((s) => s.spell.level === 2);
 
-  const spellDisplay = (spell, prepared) => (
+  const spellDisplay = (spell) => (
     <div
       className={`flex gap-2 shadow items-start rounded-md border py-1 ps-2 pe-1 md:py-2 md:px-3 ${theme.border} ${theme.shadow} ${theme.bg}`}
-      key={spell.name}
+      key={spell.spell.name}
       onClick={(e) => setSelectedSpell(spell)}
     >
       <div className="pt-1">
         <div
           className={`w-[12px] h-[12px] rounded-full border ${theme.border} ${
-            prepared && "bg-white"
+            spell.prepared && "bg-white"
           }`}
         ></div>
       </div>
-      <p className="flex-1 text-sm">{spell.name}</p>
+      <p className="flex-1 text-sm">{spell.spell.name}</p>
     </div>
   );
 
@@ -81,9 +104,7 @@ function CharacterSheetSpells({ spells, spellSlots, theme }) {
         <div className="flex flex-col gap-1">
           <h3 className="text-lg">Cantrips</h3>
           <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2">
-            {cantrips.map((cantrip, index) =>
-              spellDisplay(cantrip.spell, cantrip.prepared)
-            )}
+            {cantrips.map((cantrip, index) => spellDisplay(cantrip))}
           </div>
         </div>
       )}
@@ -95,7 +116,7 @@ function CharacterSheetSpells({ spells, spellSlots, theme }) {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2">
             {level1Spells.map((level1Spell, index) =>
-              spellDisplay(level1Spell.spell, level1Spell.prepared)
+              spellDisplay(level1Spell)
             )}
           </div>
         </div>
@@ -108,12 +129,12 @@ function CharacterSheetSpells({ spells, spellSlots, theme }) {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2">
             {level2Spells.map((level2Spell, index) =>
-              spellDisplay(level2Spell.spell, level2Spell.prepared)
+              spellDisplay(level2Spell)
             )}
           </div>
         </div>
       )}
-      {selectedSpell?.name && spellPopup}
+      {selectedSpell?.spell?.name && spellPopup}
     </div>
   );
 }

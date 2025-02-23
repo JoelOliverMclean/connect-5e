@@ -6,7 +6,6 @@ import CharacterSheetCombat from "./combat/CharacterSheetCombat";
 import CharacterSheetMagic from "./magic/CharacterSheetMagic";
 import CharacterSheetInventory from "./inventory/CharacterSheetInventory";
 import CharacterSheetProfile from "./profile/CharacterSheetProfile";
-import characterSheet from "@/mockdata/characters/LordMajiCock";
 
 const styles = {
   bottomBarButton:
@@ -51,8 +50,8 @@ const themes = {
   },
 };
 
-function CharacterSheet() {
-  const [theme, setTheme] = useState(themes.red);
+function CharacterSheet({ characterSheet, dm, initTheme }) {
+  const [theme, setTheme] = useState(themes[initTheme ?? "red"]);
   const divRef = useRef(null);
 
   const scrollToTop = () => {
@@ -82,7 +81,7 @@ function CharacterSheet() {
         height={24}
         alt={name}
       />
-      <p className="font-semibold hidden md:block">{name}</p>
+      <p className={`font-semibold hidden ${!dm && "md:block"}`}>{name}</p>
     </div>
   );
 
@@ -193,7 +192,7 @@ function CharacterSheet() {
   };
 
   const header = (
-    <div className="px-2 grid grid-cols-1 md:grid-cols-2 gap-2">
+    <div className={`px-2 grid grid-cols-1 ${!dm && "md:grid-cols-2"} gap-2`}>
       <div className="flex gap-2">
         <div className="flex-1">
           <div className={`text-lg font-bold`}>
@@ -220,7 +219,11 @@ function CharacterSheet() {
           <p className="text-xs text-center">Condition</p>
         </div>
       </div>
-      <div className="flex items-end justify-between md:justify-around xl:justify-end gap-2">
+      <div
+        className={`flex items-end justify-between ${
+          !dm && "md:justify-around xl:justify-end"
+        }  gap-2`}
+      >
         {hpCell}
         {hitDie}
         {deathSaves}
@@ -229,7 +232,7 @@ function CharacterSheet() {
   );
 
   return (
-    <div className={`flex flex-col h-full ${theme.text}`}>
+    <div className={`flex flex-col h-full ${dm && "max-w-sm"} ${theme.text}`}>
       {/* Inner Fixed Header */}
       <header
         className={`sticky top-0 z-10 ${theme.bg} border-b-2 ${theme.border}`}
@@ -256,6 +259,7 @@ function CharacterSheet() {
             <CharacterSheetStats
               characterSheet={characterSheet}
               theme={theme}
+              dm={dm}
             />
           </div>
           <div
@@ -266,6 +270,7 @@ function CharacterSheet() {
             <CharacterSheetCombat
               characterSheet={characterSheet}
               theme={theme}
+              dm={dm}
             />
           </div>
           {characterSheet.spellcasting && (
@@ -277,6 +282,7 @@ function CharacterSheet() {
               <CharacterSheetMagic
                 characterSheet={characterSheet}
                 theme={theme}
+                dm={dm}
               />
             </div>
           )}
@@ -288,6 +294,7 @@ function CharacterSheet() {
             <CharacterSheetInventory
               characterSheet={characterSheet}
               theme={theme}
+              dm={dm}
             />
           </div>
           <div
@@ -298,6 +305,7 @@ function CharacterSheet() {
             <CharacterSheetProfile
               characterSheet={characterSheet}
               theme={theme}
+              dm={dm}
             />
           </div>
         </div>
