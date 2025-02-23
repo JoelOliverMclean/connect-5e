@@ -36,7 +36,7 @@ function CharacterSheetStats({ characterSheet, theme }) {
   const showAbilityScoreHelp = () => {};
 
   const mainStatBlock = (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col gap-2">
       <div className="flex justify-center gap-1 items-center">
         <h2 className="text-center text-xl">Ability Scores</h2>
         <div className="p-1 cursor-pointer" onClick={showAbilityScoreHelp}>
@@ -131,7 +131,7 @@ function CharacterSheetStats({ characterSheet, theme }) {
           )}
         </div>
       </div>
-      <div className="flex-1 text-end text-xs flex gap-1 px-1">
+      <div className="flex-1 text-end text-xs flex gap-1 px-1 items-start">
         <span className="bg-yellow-500 text-black font-bold px-1 rounded-full">
           P
         </span>
@@ -152,7 +152,7 @@ function CharacterSheetStats({ characterSheet, theme }) {
   const showPassiveStatsHelp = () => {};
 
   const passiveStats = (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col gap-2">
       <div className="flex justify-center gap-1 items-center">
         <h2 className="text-center text-xl">Passive Stats</h2>
         <div className="p-1 cursor-pointer" onClick={showPassiveStatsHelp}>
@@ -181,7 +181,7 @@ function CharacterSheetStats({ characterSheet, theme }) {
 
   const skillCell = (skill) => (
     <div
-      className={`flex justify-between gap-1 items-end shadow rounded-md border px-1 ${theme.border} ${theme.shadow} ${theme.bg}`}
+      className={`flex justify-between gap-1 items-end shadow rounded-md border px-1 md:px-2 md:py-1 ${theme.border} ${theme.shadow} ${theme.bg}`}
     >
       <p className="flex-1 truncate text-sm">{skill.name}</p>
       <p>
@@ -211,7 +211,7 @@ function CharacterSheetStats({ characterSheet, theme }) {
         </div>
       </div>
       <div className="flex flex-col gap-2">
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2">
           {characterSheet.skills.map((skill) => (
             <div key={skill.name}>{skillCell(skill)}</div>
           ))}
@@ -226,9 +226,11 @@ function CharacterSheetStats({ characterSheet, theme }) {
 
   return (
     <div className="flex flex-col gap-3 p-2">
-      {mainStatBlock}
-      {saveStats}
-      {passiveStats}
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 md:gap-5">
+        {mainStatBlock}
+        {saveStats}
+        {passiveStats}
+      </div>
       {skillStats}
     </div>
   );
