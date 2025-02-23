@@ -14,7 +14,7 @@ const styles = {
   statSecondary: "font-semibold flex-1",
 };
 
-function CharacterSheetStats({ characterSheet, theme }) {
+function CharacterSheetStats({ characterSheet, theme, dm }) {
   const statBlock = (label, stat) => (
     <div
       className={`${styles.statWrapper} ${theme.bg} ${theme.border} ${theme.shadow}`}
@@ -211,7 +211,11 @@ function CharacterSheetStats({ characterSheet, theme }) {
         </div>
       </div>
       <div className="flex flex-col gap-2">
-        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2">
+        <div
+          className={`grid grid-cols-2 ${
+            !dm && "md:grid-cols-3 xl:grid-cols-4"
+          } gap-2`}
+        >
           {characterSheet.skills.map((skill) => (
             <div key={skill.name}>{skillCell(skill)}</div>
           ))}
@@ -226,7 +230,11 @@ function CharacterSheetStats({ characterSheet, theme }) {
 
   return (
     <div className="flex flex-col gap-3 p-2">
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 md:gap-5">
+      <div
+        className={`grid grid-cols-1 gap-3 ${
+          !dm && "md:grid-cols-2 xl:grid-cols-3 md:gap-5"
+        }`}
+      >
         {mainStatBlock}
         {saveStats}
         {passiveStats}
