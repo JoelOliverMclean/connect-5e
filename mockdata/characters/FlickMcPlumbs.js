@@ -89,13 +89,6 @@ const characterSheet = {
   traits: {
     racial: [],
   },
-  currency: {
-    cp: 0,
-    sp: 0,
-    ep: 0,
-    gp: 0,
-    pp: 0,
-  },
   race: "Human",
   profile: {
     name: "Flick McPlumbs",
@@ -289,7 +282,13 @@ const characterSheet = {
   attacksPerAction: 1,
   attacks: [],
   inventory: {
-    personal: [
+    currency: {
+      cp: 0,
+      sp: 0,
+      gp: 0,
+      pp: 0,
+    },
+    backpack: [
       {
         item: weapons.swordOfOrcStrength,
         category: "weapon",
@@ -304,6 +303,7 @@ const characterSheet = {
       },
     ],
     stored: [],
+    maxAttunedItems: 3,
     attunedMagicItems: [],
   },
   resources: {

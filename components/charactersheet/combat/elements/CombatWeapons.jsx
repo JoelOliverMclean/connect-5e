@@ -8,15 +8,45 @@ function CombatWeapons({ weapons, theme }) {
   const weaponPopup = (
     <Popup onDismiss={(e) => setSelectedWeapon(null)}>
       <div
-        className={`${theme.bg} border-2 ${theme.border} p-2 rounded-lg min-w-[85vw] flex flex-col`}
+        className={`${theme.bg} border-2 ${theme.border} p-2 rounded-lg min-w-[85vw] flex flex-col gap-1`}
       >
         <h2 className="text-xl font-bold">{selectedWeapon?.name}</h2>
-        <p className="text-sm">{selectedWeapon?.description}</p>
+        {selectedWeapon?.description?.lengt > 0 && (
+          <p className="text-sm">{selectedWeapon?.description}</p>
+        )}
+        <hr />
+        <div>
+          <div className="text-sm flex justify-between">
+            <div className="flex gap-2">
+              <div className="opacity-70">Hit Bonus:</div>
+              <div>{getModifier(selectedWeapon?.hitBonus)}</div>
+            </div>
+            <div className="flex gap-2">
+              <div className="opacity-70">Range:</div>
+              <div>{selectedWeapon?.range}</div>
+            </div>
+          </div>
+          <div className="text-sm flex justify-between">
+            <div className="flex gap-2">
+              <div className="opacity-70">Damage:</div>
+              <div>
+                {selectedWeapon?.damage
+                  .map(
+                    (damage) =>
+                      `${damage.dice}${
+                        damage.bonus > 0 ? getModifier(damage.bonus) : ""
+                      } ${damage.type}`
+                  )
+                  .join(", ")}
+              </div>
+            </div>
+          </div>
+        </div>
         {selectedWeapon?.properties?.length > 0 && (
-          <>
+          <div>
             <h4 className="font-bold">Properties:</h4>
             <p className="text-sm">{selectedWeapon.properties.join(", ")}</p>
-          </>
+          </div>
         )}
       </div>
     </Popup>

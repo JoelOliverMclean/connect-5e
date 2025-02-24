@@ -292,7 +292,7 @@ function CharacterSheet({ characterSheet, dm, initTheme }) {
             }
           >
             <CharacterSheetInventory
-              characterSheet={characterSheet}
+              inventory={characterSheet.inventory}
               theme={theme}
               dm={dm}
             />

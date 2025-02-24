@@ -61,7 +61,7 @@ function CharacterSheetCombat({ characterSheet, theme }) {
     .features()
     .filter((p) => p.type === "reaction");
 
-  const weapons = characterSheet.inventory.personal.filter(
+  const weapons = characterSheet.inventory.backpack.filter(
     (item) => item.category === "weapon" && item.equipped
   );
 
