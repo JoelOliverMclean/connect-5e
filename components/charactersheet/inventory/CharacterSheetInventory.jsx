@@ -195,8 +195,9 @@ function CharacterSheetInventory({ inventory, theme, dm }) {
   const backpackFilterDialog = (
     <Popup onDismiss={(e) => setBackpackFilterDialogOpen(false)}>
       <div
-        className={`${theme.bg} border-2 ${theme.border} p-2 rounded-lg min-w-[85vw] md:min-w-[30vw] md:max-w-[60vw] lg:max-w-[40vw] flex flex-col gap-2`}
+        className={`${theme.bg} border-2 ${theme.border} p-2 rounded-lg w-[280px] flex flex-col gap-2`}
       >
+        <h2 className="text-xl text-center">Backpack Filters</h2>
         {Object.keys(backpackFilters).map((filterName) => (
           <div
             key={filterName}
@@ -226,8 +227,9 @@ function CharacterSheetInventory({ inventory, theme, dm }) {
   const storedFilterDialog = (
     <Popup onDismiss={(e) => setStoredFilterDialogOpen(false)}>
       <div
-        className={`${theme.bg} border-2 ${theme.border} p-2 rounded-lg min-w-[85vw] md:min-w-[30vw] md:max-w-[60vw] lg:max-w-[40vw] flex flex-col gap-2`}
+        className={`${theme.bg} border-2 ${theme.border} p-2 rounded-lg w-[280px] flex flex-col gap-2`}
       >
+        <h2 className="text-xl text-center">Stored Items Filters</h2>
         {Object.keys(storedFilters).map((filterName) => (
           <div
             key={filterName}
