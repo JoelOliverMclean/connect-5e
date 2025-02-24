@@ -66,7 +66,7 @@ function CharacterSheetCombat({ characterSheet, theme }) {
   );
 
   return (
-    <div className="flex flex-col p-2 gap-3">
+    <div className="flex flex-col p-2 gap-4">
       {topSection}
       {weapons.length > 0 && (
         <div className="flex flex-col gap-2">
