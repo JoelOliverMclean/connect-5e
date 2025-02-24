@@ -7,26 +7,30 @@ function CharacterSheetInventory({ inventory, theme, dm }) {
     {
       name: "Platinum",
       amount: inventory.currency.pp,
-      baseColor: "indigo",
-      tone: 900,
+      bg: "bg-indigo-900",
+      border: "border-indigo-600",
+      shadow: "shadow-indigo-900",
     },
     {
       name: "Gold",
       amount: inventory.currency.gp,
-      baseColor: "yellow",
-      tone: 600,
+      bg: "bg-yellow-600",
+      border: "border-yellow-300",
+      shadow: "shadow-yellow-600",
     },
     {
       name: "Silver",
       amount: inventory.currency.sp,
-      baseColor: "gray",
-      tone: 500,
+      bg: "bg-gray-500",
+      border: "border-gray-200",
+      shadow: "shadow-gray-500",
     },
     {
       name: "Copper",
       amount: inventory.currency.cp,
-      baseColor: "orange",
-      tone: 900,
+      bg: "bg-orange-900",
+      border: "border-orange-600",
+      shadow: "shadow-orange-900",
     },
   ]);
 
@@ -76,36 +80,22 @@ function CharacterSheetInventory({ inventory, theme, dm }) {
     </Popup>
   );
 
-  const currencyCell = (label, amount, baseColor, tone) => (
-    <div key={label} className="flex flex-col gap-2 p-1">
+  const currencyCell = (currency) => (
+    <div key={currency.name} className="flex flex-col gap-2 p-1">
       <div
-        className={`flex flex-col gap-1 p-1 bg-${baseColor}-${tone} rounded-lg border-${baseColor}-${
-          tone - 300
-        } border shadow-${baseColor}-${tone} shadow-md`}
-        onClick={() =>
-          setSelectedCurrency({
-            name: label,
-            amount,
-          })
-        }
+        className={`flex flex-col gap-1 p-1 ${currency.bg} rounded-lg ${currency.border} border ${currency.shadow} shadow-md`}
+        onClick={() => setSelectedCurrency(currency)}
       >
-        <p className="text-center text-xl py-1">{amount}</p>
+        <p className="text-center text-xl py-1">{currency.amount}</p>
       </div>
-      <h4 className="text-sm text-center">{label}</h4>
+      <h4 className="text-sm text-center">{currency.name}</h4>
     </div>
   );
 
   const currencySection = (
     <>
       <div className="grid grid-cols-4 gap-2">
-        {currencies.map((currency) =>
-          currencyCell(
-            currency.name,
-            currency.amount,
-            currency.baseColor,
-            currency.tone
-          )
-        )}
+        {currencies.map((currency) => currencyCell(currency))}
       </div>
       {selectedCurrency?.name && currencyDialog}
     </>
