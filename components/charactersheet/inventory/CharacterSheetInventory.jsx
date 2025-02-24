@@ -145,7 +145,7 @@ function CharacterSheetInventory({ inventory, theme, dm }) {
     </div>
   );
 
-  const backpackItemCell = (item, index) => (
+  const itemCell = (item) => (
     <div
       key={item.item.name}
       className="flex justify-between border-b border-opacity-40 border-white p-1 gap-2"
@@ -155,49 +155,50 @@ function CharacterSheetInventory({ inventory, theme, dm }) {
     </div>
   );
 
-  const [filters, setFilters] = useState({
-    "Weapons Only": {
-      predicate: (p) => p.category === "weapon",
+  const [backpackFilters, setBackpackFilters] = useState({
+    Weapons: {
+      condition: (p) => p.category === "weapon",
       on: false,
     },
-    "Armor Only": {
-      predicate: (p) => p.category === "armor",
+    Armor: {
+      condition: (p) => p.category === "armor",
       on: false,
     },
   });
 
-  const [filterDialogOpen, setFilterDialogOpen] = useState(false);
+  const [backpackFilterDialogOpen, setBackpackFilterDialogOpen] =
+    useState(false);
 
-  const toggleFilter = (filterName) => {
-    const newFilters = { ...filters };
+  const toggleBackpackFilter = (filterName) => {
+    const newFilters = { ...backpackFilters };
     const newFilter = {
       ...newFilters[filterName],
       on: !newFilters[filterName].on,
     };
     newFilters[filterName] = newFilter;
-    setFilters(newFilters);
+    setBackpackFilters(newFilters);
   };
 
-  const filterDialog = (
-    <Popup onDismiss={(e) => setFilterDialogOpen(false)}>
+  const backpackFilterDialog = (
+    <Popup onDismiss={(e) => setBackpackFilterDialogOpen(false)}>
       <div
         className={`${theme.bg} border-2 ${theme.border} p-2 rounded-lg min-w-[85vw] md:min-w-[30vw] md:max-w-[60vw] lg:max-w-[40vw] flex flex-col gap-2`}
       >
-        {Object.keys(filters).map((filterName) => (
+        {Object.keys(backpackFilters).map((filterName) => (
           <div
             key={filterName}
             className="flex justify-between items-center p-1 "
-            onClick={() => toggleFilter(filterName)}
+            onClick={() => toggleBackpackFilter(filterName)}
           >
             <p>{filterName}</p>
             <div
               className={`rounded-full w-[40px] p-1 flex items-center duration-300 relative ${
-                filters[filterName].on ? "bg-green-900" : "bg-black"
+                backpackFilters[filterName].on ? "bg-green-900" : "bg-black"
               }`}
             >
               <div
                 className={`w-[12px] h-[12px] bg-white rounded-full transition-transform duration-300 ${
-                  filters[filterName].on
+                  backpackFilters[filterName].on
                     ? "translate-x-[20px]"
                     : "translate-x-0"
                 }`}
@@ -210,16 +211,20 @@ function CharacterSheetInventory({ inventory, theme, dm }) {
   );
 
   const openBackpackFilterDialog = () => {
-    setFilterDialogOpen(true);
+    setBackpackFilterDialogOpen(true);
   };
 
-  const getFilteredInventory = () => {
-    var result = inventory.backpack;
-    Object.keys(filters).forEach((key) => {
-      const filter = filters[key];
-      if (filter.on) result = result.filter(filter.predicate);
+  const getFilteredBackpack = () => {
+    const filters = Object.keys(backpackFilters).map((k) => backpackFilters[k]);
+    return inventory.backpack.filter((item) => {
+      if (!filters.some((filter) => filter.on)) return true;
+      for (const filter of filters) {
+        if (filter.condition(item)) {
+          return true;
+        }
+      }
+      return false;
     });
-    return result;
   };
 
   const backpackSection = (
@@ -247,15 +252,18 @@ function CharacterSheetInventory({ inventory, theme, dm }) {
         </div>
         <hr />
         <div className="grid grid-cols-1 gap-1 pt-1">
-          {getFilteredInventory().map((item) => backpackItemCell(item))}
-          {getFilteredInventory().length === 0 && (
+          {getFilteredBackpack().map((item) => itemCell(item))}
+          {getFilteredBackpack().length === 0 && (
             <p className="text-center text-sm opacity-50 p-1">
-              No items, check filter
+              No items
+              {Object.keys(backpackFilters)
+                .map((k) => backpackFilters[k])
+                .some((p) => p.on) && ", check filters"}
             </p>
           )}
         </div>
       </div>
-      {filterDialogOpen && filterDialog}
+      {backpackFilterDialogOpen && backpackFilterDialog}
     </div>
   );
 
