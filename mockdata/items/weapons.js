@@ -22,7 +22,7 @@ const quarterstaff = {
   range: "5ft",
   hitBonus: 2,
   damage: [{ dice: "1d6", bonus: 0, type: "bludgeoning" }],
-  properties: ["versatile"],
+  properties: ["versatile (1d8)"],
 };
 
 export default { swordOfOrcStrength, crossbowLight, quarterstaff };
