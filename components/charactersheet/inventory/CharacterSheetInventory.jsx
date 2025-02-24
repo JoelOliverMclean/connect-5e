@@ -155,7 +155,7 @@ function CharacterSheetInventory({ inventory, theme, dm }) {
     </div>
   );
 
-  const [backpackFilters, setBackpackFilters] = useState({
+  const initialFilters = {
     Weapons: {
       condition: (p) => p.category === "weapon",
       on: false,
@@ -164,10 +164,13 @@ function CharacterSheetInventory({ inventory, theme, dm }) {
       condition: (p) => p.category === "armor",
       on: false,
     },
-  });
+  };
+  const [backpackFilters, setBackpackFilters] = useState(initialFilters);
+  const [storedFilters, setStoredFilters] = useState(initialFilters);
 
   const [backpackFilterDialogOpen, setBackpackFilterDialogOpen] =
     useState(false);
+  const [storedFilterDialogOpen, setStoredFilterDialogOpen] = useState(false);
 
   const toggleBackpackFilter = (filterName) => {
     const newFilters = { ...backpackFilters };
@@ -177,6 +180,16 @@ function CharacterSheetInventory({ inventory, theme, dm }) {
     };
     newFilters[filterName] = newFilter;
     setBackpackFilters(newFilters);
+  };
+
+  const toggleStoredFilter = (filterName) => {
+    const newFilters = { ...storedFilters };
+    const newFilter = {
+      ...newFilters[filterName],
+      on: !newFilters[filterName].on,
+    };
+    newFilters[filterName] = newFilter;
+    setStoredFilters(newFilters);
   };
 
   const backpackFilterDialog = (
@@ -210,13 +223,61 @@ function CharacterSheetInventory({ inventory, theme, dm }) {
     </Popup>
   );
 
+  const storedFilterDialog = (
+    <Popup onDismiss={(e) => setStoredFilterDialogOpen(false)}>
+      <div
+        className={`${theme.bg} border-2 ${theme.border} p-2 rounded-lg min-w-[85vw] md:min-w-[30vw] md:max-w-[60vw] lg:max-w-[40vw] flex flex-col gap-2`}
+      >
+        {Object.keys(storedFilters).map((filterName) => (
+          <div
+            key={filterName}
+            className="flex justify-between items-center p-1 "
+            onClick={() => toggleStoredFilter(filterName)}
+          >
+            <p>{filterName}</p>
+            <div
+              className={`rounded-full w-[40px] p-1 flex items-center duration-300 relative ${
+                storedFilters[filterName].on ? "bg-green-900" : "bg-black"
+              }`}
+            >
+              <div
+                className={`w-[12px] h-[12px] bg-white rounded-full transition-transform duration-300 ${
+                  storedFilters[filterName].on
+                    ? "translate-x-[20px]"
+                    : "translate-x-0"
+                }`}
+              ></div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </Popup>
+  );
+
   const openBackpackFilterDialog = () => {
     setBackpackFilterDialogOpen(true);
+  };
+
+  const openStoredFilterDialog = () => {
+    setStoredFilterDialogOpen(true);
   };
 
   const getFilteredBackpack = () => {
     const filters = Object.keys(backpackFilters).map((k) => backpackFilters[k]);
     return inventory.backpack.filter((item) => {
+      if (!filters.some((filter) => filter.on)) return true;
+      for (const filter of filters) {
+        if (filter.condition(item)) {
+          return true;
+        }
+      }
+      return false;
+    });
+  };
+
+  const getFilteredStored = () => {
+    const filters = Object.keys(storedFilters).map((k) => storedFilters[k]);
+    return inventory.stored.filter((item) => {
       if (!filters.some((filter) => filter.on)) return true;
       for (const filter of filters) {
         if (filter.condition(item)) {
@@ -267,10 +328,48 @@ function CharacterSheetInventory({ inventory, theme, dm }) {
     </div>
   );
 
-  const storedSection = <div></div>;
+  const storedSection = (
+    <div className="flex flex-col gap-2">
+      <div className="relative">
+        <h3 className="text-center text-xl">Stored Items</h3>
+        <div
+          className="absolute top-0 right-0 bottom-0 flex items-center justify-center"
+          onClick={() => openStoredFilterDialog()}
+        >
+          <Image
+            src="/icons/filter_list_icon.png"
+            width={24}
+            height={24}
+            alt="filter stored icon"
+          />
+        </div>
+      </div>
+      <div
+        className={`${theme.bg} p-2 rounded-lg ${theme.border} border ${theme.shadow} shadow-md`}
+      >
+        <div className="flex justify-between px-1">
+          <h5 className="bold text-lg font-bold">Item</h5>
+          <h5 className="bold text-lg font-bold">#</h5>
+        </div>
+        <hr />
+        <div className="grid grid-cols-1 gap-1 pt-1">
+          {getFilteredStored().map((item) => itemCell(item))}
+          {getFilteredStored().length === 0 && (
+            <p className="text-center text-sm opacity-50 p-1">
+              No items
+              {Object.keys(storedFilters)
+                .map((k) => storedFilters[k])
+                .some((p) => p.on) && ", check filters"}
+            </p>
+          )}
+        </div>
+      </div>
+      {storedFilterDialogOpen && storedFilterDialog}
+    </div>
+  );
 
   return (
-    <div className="flex flex-col p-2 gap-3">
+    <div className="flex flex-col p-2 gap-4">
       {currencySection}
       {attunedItemsSection}
       {backpackSection}

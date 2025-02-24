@@ -53,7 +53,7 @@ function CharacterSheetMagic({ characterSheet, theme }) {
   );
 
   return (
-    <div className="flex flex-col p-2 gap-3">
+    <div className="flex flex-col p-2 gap-4">
       {topSection}
       <CharacterSheetSpells
         spells={characterSheet.spellcasting.spells}
