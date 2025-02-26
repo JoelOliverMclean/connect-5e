@@ -76,8 +76,8 @@ const characterSheet = {
   },
   proficiency: {
     bonus: 2,
-    armor: [],
-    weapons: [],
+    armor: ["Chain Shirt"],
+    weapons: ["Dagger", "Dart", "Sling", "Quarterstaff", "Crossbow", "Light"],
     tools: [],
     saves: ["intelligence", "wisdom"],
   },
@@ -344,6 +344,44 @@ const characterSheet = {
     channelDivinity: { max: 0, current: 0 },
     evasions: { max: 0, current: 0 },
   },
+  notes: [
+    {
+      id: "062087be-22d8-4c4a-8eba-ebdf92352e4b",
+      name: "Note 1",
+      contents:
+        "This is a note about something I need to keep track of in the game",
+    },
+    {
+      id: "b5771ee6-9285-4672-b52c-7f088796e0b5",
+      name: "Another note",
+      contents:
+        "This note has different contents about something else I don't remember",
+    },
+    {
+      id: "564c57b8-21ed-43ea-abc4-919ac0fc8642",
+      name: "Important note",
+      contents:
+        "Well on the morning of session 3 we went to a tavern and found nothing there but Durnan.",
+    },
+    {
+      id: "fd517252-7f1b-4034-9fbe-5c8a8fe0dd12",
+      name: "Dwayne",
+      contents:
+        "We must find Dwayne with haste, he has gone missing and Mhazhique is distraught",
+    },
+    {
+      id: "6e7ec250-8673-421b-802d-04260fce1066",
+      name: "Red hoods",
+      contents:
+        "Who are the red hoods and why do they want me? I have to find them and ask.",
+    },
+    {
+      id: "2f675ce4-d29e-436d-9546-2b63ca78a32d",
+      name: "Barryman",
+      contents:
+        "Met a dude called Barryman who owned a local tannery, maybe in future if we get any skins we can use him before selling them.",
+    },
+  ],
 };
 
 export default characterSheet;

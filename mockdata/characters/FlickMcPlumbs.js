@@ -316,6 +316,7 @@ const characterSheet = {
     channelDivinity: { max: 0, current: 0 },
     evasions: { max: 0, current: 0 },
   },
+  notes: [],
 };
 
 export default characterSheet;
