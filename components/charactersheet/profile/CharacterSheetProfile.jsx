@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ProfileNotes from "./notes/ProfileNotes";
 import { isBreakpoint } from "@/utils/ScreenUtils";
 
 function CharacterSheetProfile({ characterSheet, theme, dm }) {
+  const [maxNotes, setMaxNotes] = useState(0);
+
+  useEffect(() => {
+    setMaxNotes(isBreakpoint("sm") ? "8" : "4");
+  }, []);
+
   const proficienciesSection = (
     <div className="flex flex-col gap-2">
       <h3 className="text-center text-xl">Proficiencies</h3>
@@ -55,7 +61,7 @@ function CharacterSheetProfile({ characterSheet, theme, dm }) {
       </div>
       <ProfileNotes
         notes={characterSheet.notes}
-        maxNotes={isBreakpoint("sm") ? "8" : "4"}
+        maxNotes={maxNotes}
         theme={theme}
       />
     </div>
