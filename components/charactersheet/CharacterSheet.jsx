@@ -76,9 +76,10 @@ function CharacterSheet({ characterSheet, dm, initTheme }) {
     });
   };
 
-  const [selected, setSelected] = useState(
-    localStorage.getItem(SELECTED_TAB_KEY) || "stats"
-  );
+  const [selected, setSelected] = useState("stats");
+  useEffect(() => {
+    setSelected(localStorage.getItem(SELECTED_TAB_KEY) || "stats");
+  }, []);
 
   const changeTab = (name) => {
     scrollToTop();
