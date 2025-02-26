@@ -35,6 +35,9 @@ inventory [
 ]
 
 profile [
+  proficiencies
+  languages
   bio
-  alignment
+  notes
+  backstory
 ]

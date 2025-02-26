@@ -53,12 +53,48 @@ h4 {
   pointer-events: none;
 }
 
+h2 {
+  @apply text-xl font-semibold;
+}
+
+@layer base {
+  ul {
+    list-style-type: disc;
+    padding-left: 40px;
+    margin: revert;
+  }
+
+  ol {
+    list-style-type: decimal;
+    padding-left: 40px;
+    margin: revert;
+  }
+}
+
 .truncate {
   white-space: nowrap; /* Prevents wrapping */
   overflow: hidden; /* Hides overflow */
   text-overflow: ellipsis; /* Adds "..." for truncation */
   max-width: 100%; /* Adapts to parent container */
   display: block; /* Ensures block-level behavior */
+}
+
+.truncate-two-lines {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Limit text to 2 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Adds "..." for truncation */
+  max-width: 100%;
+}
+
+.truncate-three-lines {
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Limit text to 2 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Adds "..." for truncation */
+  max-width: 100%;
 }
 
 .fadeInOut {
