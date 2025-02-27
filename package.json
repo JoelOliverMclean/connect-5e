@@ -3,32 +3,45 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:studio": "drizzle-kit studio",
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
-  "dependencies": {
+  "devDependencies": {
+    "@auth/pg-adapter": "^1.7.4",
+    "@eslint/eslintrc": "^3",
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
     "@fortawesome/free-brands-svg-icons": "^6.7.2",
     "@fortawesome/free-regular-svg-icons": "^6.7.2",
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
+    "@neondatabase/serverless": "^0.10.4",
     "@tiptap/extension-underline": "^2.11.5",
     "@tiptap/pm": "^2.11.5",
     "@tiptap/react": "^2.11.5",
     "@tiptap/starter-kit": "^2.11.5",
+    "@types/ws": "^8.5.14",
+    "dotenv": "^16.4.7",
+    "drizzle-kit": "^0.30.5",
+    "drizzle-orm": "^0.40.0",
+    "eslint": "^9",
+    "eslint-config-next": "15.1.7",
     "lucide-react": "^0.476.0",
     "next": "15.1.7",
     "next-auth": "^5.0.0-beta.25",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
-  },
-  "devDependencies": {
-    "@eslint/eslintrc": "^3",
-    "eslint": "^9",
-    "eslint-config-next": "15.1.7",
+    "pg": "^8.13.3",
     "postcss": "^8",
-    "tailwindcss": "^3.4.1"
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tailwindcss": "^3.4.1",
+    "tsx": "^4.19.3",
+    "ws": "^8.18.1"
+  },
+  "dependencies": {
+    "@auth/drizzle-adapter": "^1.8.0"
   }
 }
