@@ -37,7 +37,7 @@ export default function Toolbar() {
   return (
     <>
       <div className="bg-red-900 sticky top-0">
-        <div className="container px-3 mx-auto h-[40px] flex items-center">
+        <div className="container px-3 mx-auto h-[50px] flex items-center">
           <Link className="flex-1 text-2xl font-bold" href={"/"}>
             Connect5e
           </Link>
@@ -53,6 +53,7 @@ export default function Toolbar() {
                     src={data.user?.image}
                     fill
                     alt="logged in user profile image"
+                    sizes="64px"
                   />
                 </div>
               </>
