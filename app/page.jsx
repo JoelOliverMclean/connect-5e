@@ -11,7 +11,7 @@ export default function Home() {
       ) : (
         <div>Not logged in</div>
       )} */}
-      <div className="">
+      {/* <div className="">
         <Link
           className="px-3 py-1 bg-red-800 hover:bg-red-600 rounded-md"
           href="/charactersheet/lord-maji-cock"
@@ -26,7 +26,7 @@ export default function Home() {
         >
           Flick McPlumbs
         </Link>
-      </div>
+      </div> */}
     </div>
   );
 }

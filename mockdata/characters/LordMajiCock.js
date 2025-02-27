@@ -334,16 +334,6 @@ const characterSheet = {
     maxAttunedItems: 3,
     attunedMagicItems: [magicItems.ringOfMindShielding],
   },
-  resources: {
-    kiPoints: { max: 0, current: 0 },
-    bardicInspirations: { max: 0, current: 0 },
-    wildShapes: { max: 0, current: 0 },
-    superiorityDie: { max: 0, current: 0 },
-    arcaneRecoveries: { max: 0, current: 0 },
-    layOnHands: { max: 0, current: 0 },
-    channelDivinity: { max: 0, current: 0 },
-    evasions: { max: 0, current: 0 },
-  },
   notes: [
     {
       id: "062087be-22d8-4c4a-8eba-ebdf92352e4b",
