@@ -20,7 +20,7 @@ export default function Toolbar() {
 
   const menu = (
     <div
-      className="absolute top-[40px] right-0 bottom-0 left-0 bg-black bg-opacity-30 flex flex-row-reverse items-start p-2 container"
+      className="absolute top-[40px] right-0 bottom-0 left-0 bg-black bg-opacity-30 flex flex-row-reverse items-start p-2 container mx-auto"
       onClick={(e) => setMenuOpen(false)}
     >
       <div
