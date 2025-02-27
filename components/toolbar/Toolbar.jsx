@@ -52,6 +52,7 @@ export default function Toolbar() {
                     className="rounded-full object-contain"
                     src={data.user?.image}
                     fill
+                    alt="logged in user profile image"
                   />
                 </div>
               </>
