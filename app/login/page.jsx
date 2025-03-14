@@ -1,6 +1,5 @@
 "use client";
-import { signIn, signOut, useSession } from "next-auth/react";
-import Image from "next/image";
+import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 
@@ -9,20 +8,22 @@ function LoginPage() {
 
   const router = useRouter();
 
-  if (status === "loading") {
+  useEffect(() => {
+    if (status === "authenticated") {
+      router.push("/");
+    }
+  }, [status]);
+
+  if (status !== "unauthenticated") {
     return <p className="p-4 text-center">Loading...</p>;
   }
 
-  if (status === "authenticated") {
-    router.push("/");
-  }
-
   const signInWithGoogle = async () => {
-    signIn("google");
+    signIn("google", { redirectTo: "/" });
   };
 
   return (
-    <div className="flex h-[50%] md:h-auto p-4 justify-center md:justify-start">
+    <div className="flex flex-col h-[50%] md:h-auto p-4 items-center justify-center md:justify-start">
       <div
         className="p-2 rounded-lg bg-red-700 border-red-500 shadow-md shadow-black cursor-pointer"
         onClick={signInWithGoogle}
