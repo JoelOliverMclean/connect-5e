@@ -1,0 +1,2 @@
+ALTER TABLE "WeaponDamage" ADD COLUMN "ability_id" uuid;--> statement-breakpoint
+ALTER TABLE "WeaponDamage" ADD CONSTRAINT "weapon_damage__ability__fk" FOREIGN KEY ("ability_id") REFERENCES "public"."Ability"("id") ON DELETE no action ON UPDATE no action;

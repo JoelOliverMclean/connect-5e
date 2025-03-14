@@ -267,6 +267,7 @@ export const armorProperty = pgTable(
 export const race = pgTable("Race", {
   id: uuid().primaryKey().notNull(),
   name: varchar(),
+  slug: varchar().unique(),
   description: text(),
 });
 
@@ -353,6 +354,7 @@ export const weaponDamage = pgTable(
     dice: varchar(),
     bonus: integer(),
     type: varchar(),
+    abilityId: uuid("ability_id"),
   },
   (table) => [
     foreignKey({
@@ -364,6 +366,11 @@ export const weaponDamage = pgTable(
       columns: [table.weaponId],
       foreignColumns: [weapon.id],
       name: "WeaponDamage_weapon_id_fkey1",
+    }),
+    foreignKey({
+      columns: [table.abilityId],
+      foreignColumns: [ability.id],
+      name: "weapon_damage__ability__fk",
     }),
   ]
 );
@@ -660,6 +667,7 @@ export const subRace = pgTable(
   {
     id: uuid().primaryKey().notNull(),
     name: varchar(),
+    slug: varchar().unique(),
     description: text(),
     raceId: uuid("race_id"),
   },
